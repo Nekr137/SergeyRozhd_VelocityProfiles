@@ -1,7 +1,5 @@
 function VisualizeRanges(fig, ranges)
-
 color = [0.7, 0.7, 0.7];
-
 figure(fig);
 set(gca,'YGrid', 'on')
 set(gca,'XGrid', 'off')

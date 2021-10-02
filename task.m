@@ -1,5 +1,7 @@
 function task
 
+% -------------------------------------------------------------------------
+
 ranges1 = [
     [datenum('08/10/21 11:21') datenum('08/10/21 11:44')]
     [datenum('08/10/21 11:48') datenum('08/10/21 12:02')]
@@ -11,11 +13,12 @@ ranges1 = [
     [datenum('08/10/21 14:46') datenum('08/10/21 14:54')]
 ];
 fig1 = figure;
-title('08/10/21');
 VisualizeProfiles(ranges1, 'DATA_000p.000', fig1);
 VisualizeRanges(fig1, ranges1);
+AddStationLabels(fig1, ranges1, {'st(1)', 'st(2)', 'st2', 'st3', 'st4', 'st5', 'st6', 'st7', 'st8'});
+title('08/10/21');
 
-
+% -------------------------------------------------------------------------
 
 ranges2 = [
     [datenum('08/11/21 11:09') datenum('08/11/21 11:22')]
@@ -28,8 +31,11 @@ ranges2 = [
     [datenum('08/11/21 13:45') datenum('08/11/21 13:53')]
 ];
 fig2 = figure;
-title('08/11/21');
 VisualizeProfiles(ranges2, 'DATA_003p.000', fig2);
-VisualizeRanges(fig2, ranges2);
+VisualizeRanges(gcf, ranges2);
+AddStationLabels(gcf, ranges2, {'stn16', 'stn17', 'stn18', 'stn19', 'stn20', 'stn21', 'stn22', 'stn23'});
+title('08/11/21');
+
+% -------------------------------------------------------------------------
 end
 
