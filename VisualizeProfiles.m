@@ -1,6 +1,4 @@
-function VisualizeProfiles(ranges, filename, figureHandler)
-
-[Vn, Ve, T, H0] = LoadData(filename);
+function VisualizeProfiles(ranges, filename, figureHandler, depthIndices)
 
 % ranges - data ranges like [ [from to] [from to] [from to] ]
 % Vn(i,j) - north velocity vector
@@ -9,60 +7,71 @@ function VisualizeProfiles(ranges, filename, figureHandler)
 % T - time vector
 % H0 - depth vector
 
-% Adjust this vector to see different depth results
-% Example 1: `depthIndices = 1:length(H0);`
-% Example 2: `depthIndices = 1:5;`
-% Example 3: `depthIndices = [1 3 5];`
-depthIndices = [1 4];
+% Parsing the file and cache it using matlab `.mat` extension.
+cachedFilename = [filename '_cached_in_matlab_by.mat'];
+if ~isfile(cachedFilename)
+    [Vn, Ve, T, H0] = LoadData(filename);        % Parsing the file
+    save(cachedFilename, 'Vn', 'Ve', 'T', 'H0'); % Cache file
+else
+    load(cachedFilename, 'Vn', 'Ve', 'T', 'H0'); % Reading data from cache
+end
 
+% Check if depth indices are bigger or smaller then it should be
+[~, existingIndices] = find(depthIndices <= length(H0) & depthIndices >=1);
+depthIndices = depthIndices(existingIndices);
 
-figure(figureHandler);
-hold on;
-sz = get(0, 'ScreenSize');
-set(figureHandler, 'position', [0 0 min(sz(3),sz(4))*0.9 min(sz(3),sz(4))*0.9]);
-axis square;
-xlabel('Time');
-ylabel('Depth');
-box on;
-grid on;
-lenTime = length(T);
-lenH0 = length(depthIndices);
+figure(figureHandler);     % Made specified (created previously) figure active.
+hold on;                   % Enabled not removing the old lines if new one is created.
+sz = get(0, 'ScreenSize'); % Getting your screen size
+set(figureHandler, 'position', [0 0 min(sz(3),sz(4))*0.9 min(sz(3),sz(4))*0.9]); % Setting the figure size
+axis square;               % Made axis squared
+xlabel('Time'); ylabel('Depth'); % Axis labels
+box on; grid on;           % Enabling the box (a rectangle around the grapth) and enabling the grid
+
+% Calculate and set the limits of axis
 dH0 = min(diff(H0));
 YLim = [H0(depthIndices(1))-dH0 H0(depthIndices(end))+dH0];
-XLim = [T(1) T(lenTime)];
+XLim = [T(1) T(length(T))];
 set(gca, 'YLim', YLim)
 set(gca, 'XLim', XLim);
 datetick('x','HH:MM');
 set(gca, 'XLim', XLim);
-set(gca, 'YDir', 'reverse');
+set(gca, 'YDir', 'reverse'); % Made y axis reversed
 
-timeRange = T(lenTime) - T(1);
+% Calculating some variables for conversion of vector sizes.
+timeRange = T(length(T)) - T(1);
 depthRange = YLim(2) - YLim(1);
-unitVectorLengthOnScreen = 1 / lenH0 / 2;
+unitVectorLengthOnScreen = 1 / length(depthIndices) / 2;
 
-for idxDepth = depthIndices
-    disp(['idxDepth = ' num2str(idxDepth)]);
+for idxDepth = depthIndices % depth cycle
+    disp(['idxDepth = ' num2str(idxDepth)]); % Show idxDepth in the command window
     h = H0(idxDepth);
-    for idx = 1:lenTime
+    for idx = 1:length(T) % time cycle
         t = T(idx);
         vn = Vn(idxDepth, idx);
         ve = Ve(idxDepth, idx);
-        if (isnan(vn) || isnan(ve))
+        if (isnan(vn) || isnan(ve)) % if the vn or ve is NAN -> continue
             continue;
         end
-        vnScreen = vn * timeRange * unitVectorLengthOnScreen;
-        veScreen = ve * depthRange * unitVectorLengthOnScreen;
+        % Finding the coordinate of vectors on the Depth(Time) picture
+        vnScreen = vn * depthRange * unitVectorLengthOnScreen;
+        veScreen = ve * timeRange  * unitVectorLengthOnScreen;
         isInRange = IsInDaterange(t, ranges);
-        if (isInRange)
-            plot([t t+vnScreen], [h h+veScreen], 'r-');
+        xCoordinates = [t t+veScreen];
+        yCoordinates = [h h-vnScreen]; % The '-' sign is here because of the reversed depth axis
+        if isInRange
+            color = [1 0 0]; 
         else
-            plot([t t+vnScreen], [h h+veScreen], 'Color', [0.9 0.9 0.9]);
+            color = [0.9 0.9 0.9];
         end
+        plot(xCoordinates, yCoordinates, 'Color', color); % Show vector
     end
-    figure(figureHandler);
+    figure(figureHandler); % Made figure active to update and see the progress
 end
 end
 
+% This function checks if some data inside the intersestion range
+% Returns 1 if true and 0 othewise
 function isInRange = IsInDaterange(date, ranges)
 isInRange = 0;
 for idx = 1:length(ranges)
