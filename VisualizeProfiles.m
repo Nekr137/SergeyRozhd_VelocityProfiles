@@ -22,6 +22,5 @@ for idxDepth = 1:length(H0) % depth cycle
         yCoordinates = [h h-vnScreen]; % The '-' sign is here because of the reversed depth axis
         plot(xCoordinates, yCoordinates, 'Color', color); % Show vector
     end
-    figure(figureHandler); % Made figure active to update and see the progress
 end
 end
