@@ -1,4 +1,6 @@
 function task
+% The task from 2021-10-01 - visualize velocities, ranges, profiles,
+% station labels
 
 % Adjust this vector to see different depth results
 % Example 1: `depthIndices = [1 3 5];`

@@ -1,5 +1,4 @@
 function VisualizeProfiles(ranges, filename, figureHandler, depthIndices)
-
 % ranges - data ranges like [ [from to] [from to] [from to] ]
 % Vn(i,j) - north velocity vector
 % Ve(i,j) - east velocity vector
@@ -7,14 +6,7 @@ function VisualizeProfiles(ranges, filename, figureHandler, depthIndices)
 % T - time vector
 % H0 - depth vector
 
-% Parsing the file and cache it using matlab `.mat` extension.
-cachedFilename = [filename '_cached_in_matlab_by.mat'];
-if ~isfile(cachedFilename)
-    [Vn, Ve, T, H0] = LoadData(filename);        % Parsing the file
-    save(cachedFilename, 'Vn', 'Ve', 'T', 'H0'); % Cache file
-else
-    load(cachedFilename, 'Vn', 'Ve', 'T', 'H0'); % Reading data from cache
-end
+[Vn, Ve, T, H0] = LoadData(filename);        % Parsing the file
 
 % Check if depth indices are bigger or smaller then it should be
 [~, existingIndices] = find(depthIndices <= length(H0) & depthIndices >=1);
@@ -67,18 +59,5 @@ for idxDepth = depthIndices % depth cycle
         plot(xCoordinates, yCoordinates, 'Color', color); % Show vector
     end
     figure(figureHandler); % Made figure active to update and see the progress
-end
-end
-
-% This function checks if some data inside the intersestion range
-% Returns 1 if true and 0 othewise
-function isInRange = IsInDaterange(date, ranges)
-isInRange = 0;
-for idx = 1:length(ranges)
-    range = ranges(idx, :);
-    if date >= range(1) && date <= range(2)
-        isInRange = 1;
-        break;
-    end
 end
 end

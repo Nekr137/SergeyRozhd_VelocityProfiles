@@ -1,5 +1,13 @@
 function [Vns, Ves, Ts, Depth] = LoadData(fname)
 
+
+cachedFilename = [fname '_cached_in_matlab_by.mat'];
+if isfile(cachedFilename) % Cache data using matlab `.mat` extension.
+    % Reading the data from cache
+    load(cachedFilename, 'Vns', 'Ves', 'Ts', 'Depth');
+    return;
+end
+
 ADCP = rdpadcp(fname, 1, 'ref', 'bottom', 'des', 'yes');
 Depth=ADCP.config.range+ADCP.config.adcp_depth; %cell depth=ADCP depth+offsets
 
@@ -21,4 +29,6 @@ for i = 1:newSize
         Ves(hIdx, i) = mean(ADCP.east_vel(hIdx, lIdx:rIdx));    
     end
 end
+
+save(cachedFilename, 'Vns', 'Ves', 'Ts', 'Depth'); % Cache data
 end
