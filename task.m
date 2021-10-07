@@ -8,10 +8,12 @@ function task
 % Example 3: `depthIndices = -100:100;` (Extracting the all depths)
 depthIndices = [1 4];
 
+close all;
 
 % -------------------------------------------------------------------------
 
 % Creating the intersting ranges
+filename1 = 'DATA_000p.000';
 ranges1 = [
     [datenum('08/10/21 11:21') datenum('08/10/21 11:44')] % range 1
     [datenum('08/10/21 11:48') datenum('08/10/21 12:02')] % range 2
@@ -22,11 +24,10 @@ ranges1 = [
     [datenum('08/10/21 13:57') datenum('08/10/21 14:15')]
     [datenum('08/10/21 14:46') datenum('08/10/21 14:54')]
 ];
-fig1 = figure;                                                   % Creating the empty figure
-VisualizeProfiles(ranges1, 'DATA_000p.000', fig1, depthIndices); % Running the VisualizeProfiles() function
-VisualizeRanges(fig1, ranges1);                                  % Running the VisualizeRanges()   function
-AddStationLabels(fig1, ranges1, {'st(1)', 'st(2)', 'st2', 'st3', 'st4', 'st5', 'st6', 'st7', 'st8'}); % Adding the labels
-title('08/10/21'); % Put title
+stations1 = {'st(1)', 'st(2)', 'st2', 'st3', 'st4', 'st5', 'st6', 'st7', 'st8'};
+figureTitle1 = '08/10/21';
+
+RunFigureCreation(depthIndices, filename1, ranges1, stations1, figureTitle1);
 
 % -------------------------------------------------------------------------
 
@@ -40,12 +41,62 @@ ranges2 = [
     [datenum('08/11/21 13:19') datenum('08/11/21 13:30')]
     [datenum('08/11/21 13:45') datenum('08/11/21 13:53')]
 ];
-fig2 = figure;
-VisualizeProfiles(ranges2, 'DATA_003p.000', fig2, depthIndices);
-VisualizeRanges(gcf, ranges2);
-AddStationLabels(gcf, ranges2, {'stn16', 'stn17', 'stn18', 'stn19', 'stn20', 'stn21', 'stn22', 'stn23'});
-title('08/11/21');
+filename2 = 'DATA_003p.000';
+stations2 = {'stn16', 'stn17', 'stn18', 'stn19', 'stn20', 'stn21', 'stn22', 'stn23'};
+figureTitle2 = '08/11/21';
+
+RunFigureCreation(depthIndices, filename2, ranges2, stations2, figureTitle2);
 
 % -------------------------------------------------------------------------
 end
 
+function RunFigureCreation(depthIndices, filename, ranges, stations, figureTitle) 
+
+% Parsing the file
+[Vn, Ve, T, H0] = LoadData(filename);
+
+% Extracting this depth information only
+[Ve, Vn, H0] = ExtractDepths(Ve, Vn, H0, depthIndices);
+
+% Building the figure
+YLim = [H0(1)-0.3*(H0(end)-H0(1)) H0(end) + 0.3 * (H0(end)-H0(1))];
+fig = BuildFigure(T(1), YLim(1), T(end), YLim(2));
+
+% Running the VisualizeRanges() function
+VisualizeRanges(fig, ranges); 
+
+% Adding the labels
+AddStationLabels(fig, ranges, stations);
+
+% Put title
+title(figureTitle);
+
+STATION_VECTORS_COLOR = [1 0 0];
+NONSTATION_VECTORS_COLOR = [0.9 0.9 0.9];
+
+rangesCnt = length(ranges);
+
+% Showing non ranges
+rangeInterval = [T(1) ranges(1)];
+[vn, ve, t] = ExtractTimeInterval(Vn, Ve, T, rangeInterval);
+VisualizeProfiles(fig, vn, ve, t, H0, NONSTATION_VECTORS_COLOR);
+for stationIdx = 1:rangesCnt
+    if stationIdx > 1
+        rangeInterval = [ranges(stationIdx-1, 2) ranges(stationIdx, 1)];
+        [vn, ve, t] = ExtractTimeInterval(Vn, Ve, T, rangeInterval);
+        VisualizeProfiles(fig, vn, ve, t, H0, NONSTATION_VECTORS_COLOR);
+        figure(fig);
+   end
+end
+rangeInterval = [ranges(end) T(end)];
+[vn, ve, t] = ExtractTimeInterval(Vn, Ve, T, rangeInterval);
+VisualizeProfiles(fig, vn, ve, t, H0, NONSTATION_VECTORS_COLOR);
+
+% Showing the ranges
+for stationIdx = 1:rangesCnt
+    [stationVn, stationVe, stationT] = ExtractTimeInterval(Vn, Ve, T, ranges(stationIdx, :));
+    VisualizeProfiles(fig, stationVn, stationVe, stationT, H0, STATION_VECTORS_COLOR);
+    figure(fig);
+end
+
+end

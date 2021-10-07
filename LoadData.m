@@ -16,7 +16,7 @@ sl = 2; % smoothing level
 newSize = round(length(ADCP.mtime) / sl);
 Vns = ones(length(Depth), newSize); % Creating the matrix of ones in order to dedicate memory fro Vn
 Ves = ones(length(Depth), newSize); % Creating the matrix of ones in order to dedicate memory fro Ve
-Ts  = ones(newSize);                % Creating the matrix of ones in order to dedicate memory fro Ts
+Ts  = ones(newSize, 1);             % Creating the matrix of ones in order to dedicate memory fro Ts
 
 % Smoothing cycle.
 % We are smoothing the data using `mean` function.
