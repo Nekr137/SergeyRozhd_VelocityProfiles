@@ -8,8 +8,6 @@ function task
 % Example 3: `depthIndices = -100:100;` (Extracting the all depths)
 depthIndices = [1 4];
 
-close all;
-
 % -------------------------------------------------------------------------
 
 % Creating the intersting ranges
@@ -79,23 +77,24 @@ rangesCnt = length(ranges);
 % Showing non ranges
 rangeInterval = [T(1) ranges(1)];
 [vn, ve, t] = ExtractTimeInterval(Vn, Ve, T, rangeInterval);
-VisualizeProfiles(fig, vn, ve, t, H0, NONSTATION_VECTORS_COLOR);
+screenCoef = 1 / length(H0) / 4;
+VisualizeProfiles(fig, vn, ve, t, H0, NONSTATION_VECTORS_COLOR, screenCoef);
 for stationIdx = 1:rangesCnt
     if stationIdx > 1
         rangeInterval = [ranges(stationIdx-1, 2) ranges(stationIdx, 1)];
         [vn, ve, t] = ExtractTimeInterval(Vn, Ve, T, rangeInterval);
-        VisualizeProfiles(fig, vn, ve, t, H0, NONSTATION_VECTORS_COLOR);
+        VisualizeProfiles(fig, vn, ve, t, H0, NONSTATION_VECTORS_COLOR, screenCoef);
         figure(fig);
    end
 end
 rangeInterval = [ranges(end) T(end)];
 [vn, ve, t] = ExtractTimeInterval(Vn, Ve, T, rangeInterval);
-VisualizeProfiles(fig, vn, ve, t, H0, NONSTATION_VECTORS_COLOR);
+VisualizeProfiles(fig, vn, ve, t, H0, NONSTATION_VECTORS_COLOR, screenCoef);
 
 % Showing the ranges
 for stationIdx = 1:rangesCnt
     [stationVn, stationVe, stationT] = ExtractTimeInterval(Vn, Ve, T, ranges(stationIdx, :));
-    VisualizeProfiles(fig, stationVn, stationVe, stationT, H0, STATION_VECTORS_COLOR);
+    VisualizeProfiles(fig, stationVn, stationVe, stationT, H0, STATION_VECTORS_COLOR, screenCoef);
     figure(fig);
 end
 
