@@ -2,12 +2,6 @@ function task2_map
 % The task from 2021-10-07
 % Placed smoothing vectors on the MAP
 
-% Adjust this vector to see different depth results
-% Example 1: `depthIndices = [1 3 5];`
-% Example 2: `depthIndices = 1:5;` (1:5 is equal to [1 2 3 4 5] vector
-% Example 3: `depthIndices = -100:100;` (Extracting the all depths)
-depthIndices = [1 4];
-
 % Creating the intersting ranges
 filename1 = 'DATA_000p.000';
 filename2 = 'DATA_003p.000';
@@ -33,6 +27,25 @@ ranges2 = [
     [datenum('08/11/21 13:45') datenum('08/11/21 13:53')]
 ];
 
+coordinates = [
+  36.461407409553331  45.292780496454917
+  36.480233063429758  45.276467442133175
+  36.498251903568615  45.262193519601652
+  36.518422247007642  45.244860899384797
+  36.537516838796591  45.230077193905714
+  36.553384175635287  45.212234790741313
+  36.568444698736428  45.194392387576904
+  36.586194600962770  45.178589116202716
+  36.468668733191379  45.101611891121991
+  36.484536070030082  45.106199937649976
+  36.512236675019679  45.111297767125521
+  36.531869142633660  45.114866247758407
+  36.554459927285372  45.120983643129058
+  36.578126463587161  45.125571689657050
+  36.602061937801473  45.129140170289929
+  36.623845908715616  45.133218433870368
+];
+
 
 fig = figure;
 s1 = subplot(221);
@@ -40,23 +53,25 @@ s2 = subplot(222);
 s3 = subplot(223);
 s4 = subplot(224);
 
-coordinates = LoadCoastLineMap(s1);
-title(['08/10/21, depth idx = ' num2str(depthIndices(1))]);
-ShowMap(s1, coordinates(1:8, :), depthIndices(1), filename1, ranges1);
+depth1 = 1;
+depth2 = 4;
+
+LoadCoastLineMap(s1);
+title(['08/10/21, depth idx = ' num2str(depth1)]);
+ShowMap(s1, coordinates(1:8, :), depth1, filename1, ranges1);
 
 LoadCoastLineMap(s2);
-title(['08/10/21, depth idx = ' num2str(depthIndices(2))]);
-ShowMap(s2, coordinates(1:8, :), depthIndices(2), filename1, ranges1);
+title(['08/10/21, depth idx = ' num2str(depth2)]);
+ShowMap(s2, coordinates(1:8, :), depth2, filename1, ranges1);
 
 LoadCoastLineMap(s3);
-title(['08/11/21, depth idx = ' num2str(depthIndices(1))]);
-ShowMap(s3, coordinates(9:16, :), depthIndices(1), filename2, ranges2);
+title(['08/11/21, depth idx = ' num2str(depth1)]);
+ShowMap(s3, coordinates(9:16, :), depth1, filename2, ranges2);
 
 LoadCoastLineMap(s4);
-title(['08/11/21, depth idx = ' num2str(depthIndices(2))]);
-ShowMap(s4, coordinates(9:16, :), depthIndices(2), filename2, ranges2);
+title(['08/11/21, depth idx = ' num2str(depth2)]);
+ShowMap(s4, coordinates(9:16, :), depth2, filename2, ranges2);
 
-% -------------------------------------------------------------------------
 end
 
 function ShowMap(ax, coordinates, depthIndices, filename, ranges) 
@@ -110,9 +125,3 @@ ydata = [pn pn+vn*diff(ylim)/3];
 plot(ax, xdata, ydata, 'LineWidth', 0.3, 'Color', color);
 end
 
-function v = cellOfStrings2num(c)
-v = zeros(length(c), 1);
-for k = 1:length(c)
-   v(k) = str2num(cell2mat(c(k)));
-end
-end
