@@ -1,15 +1,17 @@
 function task2
-[ranges1,ranges2, stations1, stations2, figureTitle1, figureTitle2] = GetRangesAndStations();
-RunFigureCreation('DATA_000p.000', ranges1, stations1, figureTitle1);
-RunFigureCreation('DATA_003p.000', ranges2, stations2, figureTitle2);
+[filename1, filename2] = GetTestFilenames();
+[ranges1, ranges2, stations1, stations2, figureTitle1, figureTitle2] = GetRangesAndStations();
+RunFigureCreation(filename1, ranges1, stations1, figureTitle1);
+RunFigureCreation(filename2, ranges2, stations2, figureTitle2);
 end
+
 
 function RunFigureCreation(filename, ranges, stations, figureTitle) 
 
 % Parsing the file
 [Vn, Ve, T, H0] = LoadData(filename);
 depthIndices = [1 4];
-[Ve, Vn, H0] = ExtractDepths(Ve, Vn, H0, depthIndices);
+[Vn, Ve, H0] = ExtractDepths(Vn, Ve, H0, depthIndices);
 
 screenCoef = 1 / length(H0) / 3;
 
@@ -41,7 +43,7 @@ CreateFigure(ax, Ve, Vn, T, H0, ranges, [1 0 0], [1.0 0.9 0.9], [0.9 0.9 0.9], s
 % Vn = 0.707 * (ones(s1, s2));
 
 depthIndices = [1 2 3 4 5 6];
-[Ve, Vn, H0] = ExtractDepths(Ve, Vn, H0, depthIndices);
+[Vn, Ve, H0] = ExtractDepths(Vn, Ve, H0, depthIndices);
 
 rangeInterval = [ranges(1, 1), ranges(end, end)];
 [Vn, Ve, T] = ExtractTimeInterval(Vn, Ve, T, rangeInterval);

@@ -6,45 +6,8 @@ function task2_map
 filename1 = 'DATA_000p.000';
 filename2 = 'DATA_003p.000';
 
-ranges1 = [
-    [datenum('08/10/21 11:21') datenum('08/10/21 11:44')] % range 1
-    [datenum('08/10/21 11:48') datenum('08/10/21 12:02')] % range 2
-    [datenum('08/10/21 12:12') datenum('08/10/21 12:31')] % ...
-    [datenum('08/10/21 12:43') datenum('08/10/21 12:59')]
-    [datenum('08/10/21 13:09') datenum('08/10/21 13:22')]
-    [datenum('08/10/21 13:32') datenum('08/10/21 13:48')]
-    [datenum('08/10/21 13:57') datenum('08/10/21 14:15')]
-    [datenum('08/10/21 14:46') datenum('08/10/21 14:54')]
-];
-ranges2 = [
-    [datenum('08/11/21 11:09') datenum('08/11/21 11:22')]
-    [datenum('08/11/21 11:30') datenum('08/11/21 11:44')]
-    [datenum('08/11/21 11:53') datenum('08/11/21 12:08')]
-    [datenum('08/11/21 12:14') datenum('08/11/21 12:26')]
-    [datenum('08/11/21 12:32') datenum('08/11/21 12:35')]
-    [datenum('08/11/21 13:00') datenum('08/11/21 13:11')]
-    [datenum('08/11/21 13:19') datenum('08/11/21 13:30')]
-    [datenum('08/11/21 13:45') datenum('08/11/21 13:53')]
-];
-
-coordinates = [
-  36.461407409553331  45.292780496454917
-  36.480233063429758  45.276467442133175
-  36.498251903568615  45.262193519601652
-  36.518422247007642  45.244860899384797
-  36.537516838796591  45.230077193905714
-  36.553384175635287  45.212234790741313
-  36.568444698736428  45.194392387576904
-  36.586194600962770  45.178589116202716
-  36.468668733191379  45.101611891121991
-  36.484536070030082  45.106199937649976
-  36.512236675019679  45.111297767125521
-  36.531869142633660  45.114866247758407
-  36.554459927285372  45.120983643129058
-  36.578126463587161  45.125571689657050
-  36.602061937801473  45.129140170289929
-  36.623845908715616  45.133218433870368
-];
+[ranges1, ranges2, stations1, stations2, figureTitle1, figureTitle2] = GetRangesAndStations();
+coordinates = StationCoordinates();
 
 
 fig = figure;
@@ -76,8 +39,6 @@ end
 
 function ShowMap(ax, coordinates, depthIndices, filename, ranges) 
 
-axis square;
-
 % Parsing the file
 [Vn, Ve, T, H0] = LoadData(filename);
 
@@ -92,7 +53,7 @@ str = [titleStr ', depth: ' num2str(H0(depthIndices(1)))];
 set(titleHandler, 'String', str);
 
 % Extracting this depth information only
-[Ve, Vn, H0] = ExtractDepths(Ve, Vn, H0, depthIndices);
+[Vn, Ve, H0] = ExtractDepths(Vn, Ve, H0, depthIndices);
 rangesCnt = length(ranges);
 
 depthColors = [[1 0 0]; [0 0 1]; [0 1 0]; [1 1 0]; [1 0 1]; [1 1 0]];
@@ -110,10 +71,7 @@ for stationIdx = 1:rangesCnt
 %                 [0.9 0.9 0.9]);
 %         end
 %     end
-    
-    % !nb: The `t` is a vector of size [depthCnt] like the vn or ve
-    %      due to different positions of nan elements in each velocity
-    %      array!
+
     [vn, ve, t] = smoothData(stationVn, stationVe, stationT);
     
     for depthIdx = 1:length(t)
@@ -122,32 +80,7 @@ for stationIdx = 1:rangesCnt
     end
 end
 
-PusScaleVectorOnMap(ax);
+PutScaleVectorOnMap(ax);
 end
 
-function ShowVectorOnMap(ax, pe, pn, ve, vn, color)
-xlim = get(ax,'XLim');
-ylim = get(ax,'YLim');
-xdata = [pe pe+ve*diff(xlim)/3];
-ydata = [pn pn+vn*diff(ylim)/3];
-plot(ax, xdata, ydata, 'LineWidth', 0.3, 'Color', color);
-end
 
-function PusScaleVectorOnMap(ax)
-red = [0.8 0 0];
-
-xlim = get(ax, 'XLim');
-ylim = get(ax, 'YLim');
-x = xlim(1) + 0.05* (xlim(2) - xlim(1));
-y = ylim(1) + 0.15* (ylim(2) - ylim(1));
-ShowVectorOnMap(ax, x, y, 0.5, 0.0, red);
-
-h = text(x, y, '0.5 mm/s');
-extent = get(h,'Extent');
-height = extent(4);
-pos = get(h, 'Position');
-pos(2) = pos(2) - 0.7 * height;
-set(h, 'Position', pos);
-set(h,'Units','data');
-set(h, 'Color', red);
-end

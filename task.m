@@ -54,7 +54,7 @@ function RunFigureCreation(depthIndices, filename, ranges, stations, figureTitle
 [Vn, Ve, T, H0] = LoadData(filename);
 
 % Extracting this depth information only
-[Ve, Vn, H0] = ExtractDepths(Ve, Vn, H0, depthIndices);
+[Vn, Ve, H0] = ExtractDepths(Vn, Ve, H0, depthIndices);
 
 % Building the figure
 YLim = [H0(1)-0.3*(H0(end)-H0(1)) H0(end) + 0.3 * (H0(end)-H0(1))];

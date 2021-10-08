@@ -13,5 +13,6 @@ colormap bone;
 hold on;
 set(ax, 'YDir', 'normal'); % Made y axis normal
 grid on;
+axis square;
 end
 
