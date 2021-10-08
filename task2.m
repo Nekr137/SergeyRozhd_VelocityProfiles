@@ -8,8 +8,6 @@ function task2
 % Example 3: `depthIndices = -100:100;` (Extracting the all depths)
 depthIndices = [1 4];
 
-close all;
-
 % -------------------------------------------------------------------------
 
 % Creating the intersting ranges
@@ -55,12 +53,19 @@ function RunFigureCreation(depthIndices, filename, ranges, stations, figureTitle
 % Parsing the file
 [Vn, Ve, T, H0] = LoadData(filename);
 
+% Uncomment to validate the visualization
+% [s1, s2] = size(Vn);
+% Ve = 0.707 * (ones(s1, s2));
+% Vn = 0.707 * (ones(s1, s2));
+
+
 % Extracting this depth information only
 [Ve, Vn, H0] = ExtractDepths(Ve, Vn, H0, depthIndices);
 
 % Building the figure
 YLim = [H0(1)-0.3*(H0(end)-H0(1)) H0(end) + 0.3 * (H0(end)-H0(1))];
-fig = BuildFigure(T(1), YLim(1), T(end), YLim(2));
+XLim = [T(1)-0.05*(T(end) - T(1)) T(end) + 0.05 * (T(end)-T(1))];
+fig = BuildFigure(XLim(1), YLim(1), XLim(2), YLim(2));
 
 % Running the VisualizeRanges() function
 VisualizeRanges(fig, ranges); 

@@ -8,8 +8,6 @@ function task2_map
 % Example 3: `depthIndices = -100:100;` (Extracting the all depths)
 depthIndices = [1 4];
 
-close all;
-
 % Creating the intersting ranges
 filename1 = 'DATA_000p.000';
 filename2 = 'DATA_003p.000';
@@ -48,6 +46,11 @@ function ShowMap(fig, coordinates, depthIndices, filename, ranges)
 % Parsing the file
 [Vn, Ve, T, H0] = LoadData(filename);
 
+% Uncomment to check if visualization is correct
+% [s1, s2] = size(Vn);
+% Ve = 0.707 * (ones(s1, s2));
+% Vn = 0.707 * (ones(s1, s2));
+
 % Extracting this depth information only
 [Ve, Vn, H0] = ExtractDepths(Ve, Vn, H0, depthIndices);
 rangesCnt = length(ranges);
@@ -62,8 +65,8 @@ for stationIdx = 1:rangesCnt
         for timeIdx = 1:length(stationVn)
             ShowVectorOnMap(...
                 fig, coo(1), coo(2),...
-                stationVn(depthIdx, timeIdx),...
                 stationVe(depthIdx, timeIdx),...
+                stationVn(depthIdx, timeIdx),...
                 [0.9 0.9 0.9]);
         end
     end
@@ -75,7 +78,7 @@ for stationIdx = 1:rangesCnt
     
     for depthIdx = 1:length(t)
         color = depthColors(min(depthIdx,length(depthColors)), :);
-        ShowVectorOnMap(fig, coo(1), coo(2), vn(depthIdx), ve(depthIdx), color);
+        ShowVectorOnMap(fig, coo(1), coo(2), ve(depthIdx), vn(depthIdx), color);
     end
 end
 
@@ -85,11 +88,10 @@ function ShowVectorOnMap(fig, pe, pn, ve, vn, color)
 ax = get(fig, 'Children');
 xlim = get(ax,'XLim');
 ylim = get(ax,'YLim');
-
 xdata = [pe pe+ve*diff(xlim)/3];
 ydata = [pn pn+vn*diff(ylim)/3];
 
-plot(xdata, ydata, 'LineWidth', 1.0, 'Color', color);
+plot(xdata, ydata, 'LineWidth', 0.3, 'Color', color);
 
 end
 
@@ -98,17 +100,4 @@ v = zeros(length(c), 1);
 for k = 1:length(c)
    v(k) = str2num(cell2mat(c(k)));
 end
-end
-
-function backConversion()
-ax = get(fig, 'Children');
-xtick = get(ax,'XTick');
-ytick = get(ax,'YTick');
-xlabel = cellOfStrings2num(get(ax,'XTickLabel'));
-ylabel = cellOfStrings2num(get(ax,'YTickLabel'));
-
-xK = mean(diff(xlabel)) ./ mean(diff(xtick));
-yK = mean(diff(ylabel)) ./ mean(diff(ytick));
-xB = xlabel(2) - xK * xtick(2);
-yB = ylabel(2) - yK * ytick(2);
 end
