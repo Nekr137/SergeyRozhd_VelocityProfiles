@@ -16,13 +16,13 @@ screenCoef = 1 / length(H0) / 3;
 % Building the figure
 YLim = [H0(1)-0.3*(H0(end)-H0(1)) H0(end) + 0.3 * (H0(end)-H0(1))];
 XLim = [T(1)-0.05*(T(end) - T(1)) T(end) + 0.05 * (T(end)-T(1))];
-fig = BuildFigure(XLim(1), YLim(1), XLim(2), YLim(2));
+ax = BuildFigure(XLim(1), YLim(1), XLim(2), YLim(2));
 
 % Running the VisualizeRanges() function
-VisualizeRanges(fig, ranges); 
+VisualizeRanges(ax, ranges); 
 
 % Adding the labels
-AddStationLabels(fig, ranges, stations);
+AddStationLabels(ax, ranges, stations);
 
 % Put title
 title(figureTitle);
@@ -31,7 +31,7 @@ title(figureTitle);
 % [s1, s2] = size(Vn);
 % Ve = 0.707 * (ones(s1, s2));
 % Vn = 0.707 * (ones(s1, s2));
-CreateFigure(fig, Ve, Vn, T, H0, ranges, [1 0 0], [1.0 0.9 0.9], [0.9 0.9 0.9], screenCoef)
+CreateFigure(ax, Ve, Vn, T, H0, ranges, [1 0 0], [1.0 0.9 0.9], [0.9 0.9 0.9], screenCoef)
 
 
 [Vn, Ve, T, H0] = LoadABSData('ABS1_adcp300_dir.txt', 'ABS1_adcp300_mag.txt');
@@ -46,7 +46,8 @@ depthIndices = [1 2 3 4 5 6];
 rangeInterval = [ranges(1, 1), ranges(end, end)];
 [Vn, Ve, T] = ExtractTimeInterval(Vn, Ve, T, rangeInterval);
 
-CreateFigure(fig, Ve/500, Vn/500, T, H0, ranges, [0 0 1], [0.8 0.8 1.0], [0.9 0.9 0.9], screenCoef)
+CreateFigure(ax, Ve/500, Vn/500, T, H0, ranges, [0 0 1], [0.8 0.8 1.0], [0.9 0.9 0.9], screenCoef)
+
+PutScaleVector(ax, screenCoef);
 
 end
-

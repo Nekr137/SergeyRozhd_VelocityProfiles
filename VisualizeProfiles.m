@@ -1,5 +1,4 @@
-function VisualizeProfiles(figureHandler, Vn, Ve, T, H0, color, screenCoef)
-ax = get(figureHandler, 'Children'); % getting the axis of the figure
+function VisualizeProfiles(ax, Vn, Ve, T, H0, color, screenCoef)
 timeRange  = diff(get(ax,'XLim'));   % time range coefficient
 depthRange = diff(get(ax,'YLim'));   % depth range coefficient
 

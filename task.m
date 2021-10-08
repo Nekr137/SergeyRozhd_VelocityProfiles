@@ -58,13 +58,13 @@ function RunFigureCreation(depthIndices, filename, ranges, stations, figureTitle
 
 % Building the figure
 YLim = [H0(1)-0.3*(H0(end)-H0(1)) H0(end) + 0.3 * (H0(end)-H0(1))];
-fig = BuildFigure(T(1), YLim(1), T(end), YLim(2));
+ax = BuildFigure(T(1), YLim(1), T(end), YLim(2));
 
 % Running the VisualizeRanges() function
-VisualizeRanges(fig, ranges); 
+VisualizeRanges(ax, ranges); 
 
 % Adding the labels
-AddStationLabels(fig, ranges, stations);
+AddStationLabels(ax, ranges, stations);
 
 % Put title
 title(figureTitle);
@@ -78,24 +78,26 @@ rangesCnt = length(ranges);
 rangeInterval = [T(1) ranges(1)];
 [vn, ve, t] = ExtractTimeInterval(Vn, Ve, T, rangeInterval);
 screenCoef = 1 / length(H0) / 4;
-VisualizeProfiles(fig, vn, ve, t, H0, NONSTATION_VECTORS_COLOR, screenCoef);
+VisualizeProfiles(ax, vn, ve, t, H0, NONSTATION_VECTORS_COLOR, screenCoef);
 for stationIdx = 1:rangesCnt
     if stationIdx > 1
         rangeInterval = [ranges(stationIdx-1, 2) ranges(stationIdx, 1)];
         [vn, ve, t] = ExtractTimeInterval(Vn, Ve, T, rangeInterval);
-        VisualizeProfiles(fig, vn, ve, t, H0, NONSTATION_VECTORS_COLOR, screenCoef);
-        figure(fig);
-   end
+        VisualizeProfiles(ax, vn, ve, t, H0, NONSTATION_VECTORS_COLOR, screenCoef);
+    end
+   figure(gcf);
 end
 rangeInterval = [ranges(end) T(end)];
 [vn, ve, t] = ExtractTimeInterval(Vn, Ve, T, rangeInterval);
-VisualizeProfiles(fig, vn, ve, t, H0, NONSTATION_VECTORS_COLOR, screenCoef);
+VisualizeProfiles(ax, vn, ve, t, H0, NONSTATION_VECTORS_COLOR, screenCoef);
 
 % Showing the ranges
 for stationIdx = 1:rangesCnt
     [stationVn, stationVe, stationT] = ExtractTimeInterval(Vn, Ve, T, ranges(stationIdx, :));
-    VisualizeProfiles(fig, stationVn, stationVe, stationT, H0, STATION_VECTORS_COLOR, screenCoef);
-    figure(fig);
+    VisualizeProfiles(ax, stationVn, stationVe, stationT, H0, STATION_VECTORS_COLOR, screenCoef);
+    figure(gcf);
 end
+
+PutScaleVector(ax, screenCoef);
 
 end

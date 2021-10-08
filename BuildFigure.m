@@ -1,4 +1,4 @@
-function figureHandler = BuildFigure(xmin, ymin, xmax, ymax)
+function ax = BuildFigure(xmin, ymin, xmax, ymax)
 figureHandler = figure;    % new figure
 hold on;                   % Enabled not removing the old lines if new one is created.
 sz = get(0, 'ScreenSize'); % Getting your screen size
@@ -9,11 +9,12 @@ box on; grid on;           % Enabling the box (a rectangle around the grapth) an
 
 % YLim = [H0(1) - 0.01 * (H0(end)-H0(1)) H0(end) + 0.01*(H0(end)-H(1))];
 % XLim = [T(1) T(end)];
+ax = get(figureHandler, 'Children');
 XLim = [xmin xmax];
 YLim = [ymin ymax];
-set(gca, 'YLim', YLim)
-set(gca, 'XLim', XLim);
+set(ax, 'YLim', YLim)
+set(ax, 'XLim', XLim);
 datetick('x','HH:MM');
-set(gca, 'XLim', XLim);
-set(gca, 'YDir', 'reverse'); % Made y axis reversed
+set(ax, 'XLim', XLim);
+set(ax, 'YDir', 'reverse'); % Made y axis reversed
 end

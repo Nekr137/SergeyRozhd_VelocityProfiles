@@ -57,24 +57,26 @@ depth1 = 1;
 depth2 = 4;
 
 LoadCoastLineMap(s1);
-title(['08/10/21, depth idx = ' num2str(depth1)]);
+title('08/10/21');
 ShowMap(s1, coordinates(1:8, :), depth1, filename1, ranges1);
 
 LoadCoastLineMap(s2);
-title(['08/10/21, depth idx = ' num2str(depth2)]);
+title('08/10/21');
 ShowMap(s2, coordinates(1:8, :), depth2, filename1, ranges1);
 
 LoadCoastLineMap(s3);
-title(['08/11/21, depth idx = ' num2str(depth1)]);
+title('08/11/21');
 ShowMap(s3, coordinates(9:16, :), depth1, filename2, ranges2);
 
 LoadCoastLineMap(s4);
-title(['08/11/21, depth idx = ' num2str(depth2)]);
+title('08/11/21');
 ShowMap(s4, coordinates(9:16, :), depth2, filename2, ranges2);
 
 end
 
 function ShowMap(ax, coordinates, depthIndices, filename, ranges) 
+
+axis square;
 
 % Parsing the file
 [Vn, Ve, T, H0] = LoadData(filename);
@@ -83,6 +85,11 @@ function ShowMap(ax, coordinates, depthIndices, filename, ranges)
 % [s1, s2] = size(Vn);
 % Ve = 0.707 * (ones(s1, s2));
 % Vn = 0.707 * (ones(s1, s2));
+
+titleHandler = get(ax, 'Title');
+titleStr = get(titleHandler, 'String');
+str = [titleStr ', depth: ' num2str(H0(depthIndices(1)))];
+set(titleHandler, 'String', str);
 
 % Extracting this depth information only
 [Ve, Vn, H0] = ExtractDepths(Ve, Vn, H0, depthIndices);
@@ -115,6 +122,7 @@ for stationIdx = 1:rangesCnt
     end
 end
 
+PusScaleVectorOnMap(ax);
 end
 
 function ShowVectorOnMap(ax, pe, pn, ve, vn, color)
@@ -125,3 +133,21 @@ ydata = [pn pn+vn*diff(ylim)/3];
 plot(ax, xdata, ydata, 'LineWidth', 0.3, 'Color', color);
 end
 
+function PusScaleVectorOnMap(ax)
+red = [0.8 0 0];
+
+xlim = get(ax, 'XLim');
+ylim = get(ax, 'YLim');
+x = xlim(1) + 0.05* (xlim(2) - xlim(1));
+y = ylim(1) + 0.15* (ylim(2) - ylim(1));
+ShowVectorOnMap(ax, x, y, 0.5, 0.0, red);
+
+h = text(x, y, '0.5 mm/s');
+extent = get(h,'Extent');
+height = extent(4);
+pos = get(h, 'Position');
+pos(2) = pos(2) - 0.7 * height;
+set(h, 'Position', pos);
+set(h,'Units','data');
+set(h, 'Color', red);
+end
