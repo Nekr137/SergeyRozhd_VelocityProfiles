@@ -1,4 +1,4 @@
-function [fig, C] = LoadCoastLineMap()
+function C = LoadCoastLineMap(ax)
 % fig - figure handler
 % C - coordinates
 
@@ -25,14 +25,14 @@ C = [
 ];
 
 gray = rgb2gray(rgb);
-fig = figure;
-im = imagesc(xLimReal, yLimReal, gray);
+im = imagesc(ax, xLimReal, yLimReal, gray);
 % im.AlphaData = .5;
-colormap bone
+axes(ax);
+colormap bone;
 hold on;
-set(gca, 'YDir', 'normal'); % Made y axis reversed
+set(ax, 'YDir', 'normal'); % Made y axis reversed
 
-plot(C(:, 1), C(:, 2), '.', 'MarkerSize', 10);
+plot(ax, C(:, 1), C(:, 2), 'k.', 'MarkerSize', 10);
 grid on;
 end
 

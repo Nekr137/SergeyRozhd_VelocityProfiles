@@ -34,14 +34,32 @@ ranges2 = [
 ];
 
 
-[fig, coordinates] = LoadCoastLineMap();
-ShowMap(fig, coordinates(1:8, :), depthIndices, filename1, ranges1);
-ShowMap(fig, coordinates(9:16, :), depthIndices, filename2, ranges2);
+fig = figure;
+s1 = subplot(221);
+s2 = subplot(222);
+s3 = subplot(223);
+s4 = subplot(224);
+
+coordinates = LoadCoastLineMap(s1);
+title(['08/10/21, depth idx = ' num2str(depthIndices(1))]);
+ShowMap(s1, coordinates(1:8, :), depthIndices(1), filename1, ranges1);
+
+LoadCoastLineMap(s2);
+title(['08/10/21, depth idx = ' num2str(depthIndices(2))]);
+ShowMap(s2, coordinates(1:8, :), depthIndices(2), filename1, ranges1);
+
+LoadCoastLineMap(s3);
+title(['08/11/21, depth idx = ' num2str(depthIndices(1))]);
+ShowMap(s3, coordinates(9:16, :), depthIndices(1), filename2, ranges2);
+
+LoadCoastLineMap(s4);
+title(['08/11/21, depth idx = ' num2str(depthIndices(2))]);
+ShowMap(s4, coordinates(9:16, :), depthIndices(2), filename2, ranges2);
 
 % -------------------------------------------------------------------------
 end
 
-function ShowMap(fig, coordinates, depthIndices, filename, ranges) 
+function ShowMap(ax, coordinates, depthIndices, filename, ranges) 
 
 % Parsing the file
 [Vn, Ve, T, H0] = LoadData(filename);
@@ -61,15 +79,15 @@ for stationIdx = 1:rangesCnt
     coo = coordinates(stationIdx, :); % station coordinate
     [stationVn, stationVe, stationT] = ExtractTimeInterval(Vn, Ve, T, ranges(stationIdx, :));
     
-    for depthIdx = 1:length(H0)
-        for timeIdx = 1:length(stationVn)
-            ShowVectorOnMap(...
-                fig, coo(1), coo(2),...
-                stationVe(depthIdx, timeIdx),...
-                stationVn(depthIdx, timeIdx),...
-                [0.9 0.9 0.9]);
-        end
-    end
+%     for depthIdx = 1:length(H0)
+%         for timeIdx = 1:length(stationVn)
+%             ShowVectorOnMap(...
+%                 ax, coo(1), coo(2),...
+%                 stationVe(depthIdx, timeIdx),...
+%                 stationVn(depthIdx, timeIdx),...
+%                 [0.9 0.9 0.9]);
+%         end
+%     end
     
     % !nb: The `t` is a vector of size [depthCnt] like the vn or ve
     %      due to different positions of nan elements in each velocity
@@ -78,21 +96,18 @@ for stationIdx = 1:rangesCnt
     
     for depthIdx = 1:length(t)
         color = depthColors(min(depthIdx,length(depthColors)), :);
-        ShowVectorOnMap(fig, coo(1), coo(2), ve(depthIdx), vn(depthIdx), color);
+        ShowVectorOnMap(ax, coo(1), coo(2), ve(depthIdx), vn(depthIdx), color);
     end
 end
 
 end
 
-function ShowVectorOnMap(fig, pe, pn, ve, vn, color)
-ax = get(fig, 'Children');
+function ShowVectorOnMap(ax, pe, pn, ve, vn, color)
 xlim = get(ax,'XLim');
 ylim = get(ax,'YLim');
 xdata = [pe pe+ve*diff(xlim)/3];
 ydata = [pn pn+vn*diff(ylim)/3];
-
-plot(xdata, ydata, 'LineWidth', 0.3, 'Color', color);
-
+plot(ax, xdata, ydata, 'LineWidth', 0.3, 'Color', color);
 end
 
 function v = cellOfStrings2num(c)
