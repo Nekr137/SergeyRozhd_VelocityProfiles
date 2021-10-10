@@ -1,6 +1,6 @@
 function task4_coloredTime()
 
-depthIndices.ship = [2];
+depthIndices.ship = [1]; % taking the first cell
 depthIndices.ABS1 = [1];
 depthIndices.ABS2 = [1];
 
