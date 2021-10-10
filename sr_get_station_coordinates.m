@@ -1,4 +1,4 @@
-function coordinates = StationCoordinates() 
+function coordinates = sr_get_station_coordinates() 
 coordinates = [
   36.461407409553331  45.292780496454917
   36.480233063429758  45.276467442133175

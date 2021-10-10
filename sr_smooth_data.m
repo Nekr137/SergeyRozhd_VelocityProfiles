@@ -1,4 +1,4 @@
-function [oVn, oVe, oT] = smoothData(iVn, iVe, iT)
+function [oVn, oVe, oT] = sr_smooth_data(iVn, iVe, iT)
 % Smoothing the data skipping all NAN`s
 %
 % input: iVn[depthCnt, timeCnt], iVe[depthCnt, timeCnt], iT[timeCnt]

@@ -1,4 +1,4 @@
-function VisualizeRanges(ax, ranges)
+function sr_visualize_ranges(ax, ranges)
 color = [0.7, 0.7, 0.7];
 set(gca,'YGrid', 'on')
 set(gca,'XGrid', 'off')

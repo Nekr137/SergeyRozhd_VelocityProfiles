@@ -1,4 +1,4 @@
-function LoadCoastLineMap(ax)
+function sr_load_coastline_map(ax)
 % fig - figure handler
 
 rgb = imread('map_cut.png');

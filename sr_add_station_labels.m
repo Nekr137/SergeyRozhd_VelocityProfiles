@@ -1,4 +1,4 @@
-function AddStationLabels(ax, ranges, labels)
+function sr_add_station_labels(ax, ranges, labels)
 yLim = get(ax, 'YLim');
 xLim = get(ax, 'XLim');
 yPos = yLim(1) + 0.07 * (yLim(2) - yLim(1));

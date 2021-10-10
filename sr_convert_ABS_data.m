@@ -1,4 +1,4 @@
-function [Time, DataPerDepth] = ConvertABSData(head, data)
+function [Time, DataPerDepth] = sr_convert_ABS_data(head, data)
 
 [rowCnt, colCnt] = size(data);
 assert(length(head) == colCnt);

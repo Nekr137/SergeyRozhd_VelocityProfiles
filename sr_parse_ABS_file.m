@@ -1,4 +1,4 @@
-function [head, data] = ParseABSFile(filename)
+function [head, data] = sr_parse_ABS_file(filename)
 f = fopen(filename);
 
 headFound = 0;

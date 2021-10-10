@@ -1,4 +1,4 @@
-function [Vns, Ves, Ts, Depth] = LoadData(fname)
+function [Vns, Ves, Ts, Depth] = sr_load_data(fname)
 
 
 cachedFilename = [fname '_cached_in_matlab_by.mat'];

@@ -1,4 +1,4 @@
-function [ranges1,ranges2, stations1, stations2, figureTitle1, figureTitle2] = GetRangesAndStations()
+function [ranges1,ranges2, stations1, stations2, figureTitle1, figureTitle2] = sr_get_ranges_and_stations()
 
 ranges1 = [
     [datenum('08/10/21 11:21') datenum('08/10/21 11:44')] % range 1

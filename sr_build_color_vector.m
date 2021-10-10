@@ -1,4 +1,4 @@
-function colors = BuildColorVector()
+function colors = sr_build_color_vector()
 colors = [
     1 0 0
     0 1 0

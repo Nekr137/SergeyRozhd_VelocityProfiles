@@ -9,7 +9,6 @@ data = [];
 for lineIdx = 1:maxCnt
    line = fgetl(f); 
    if ~ischar(line)
-       disp('END OF THE DOCUMENT FOUND');
        break;
    end
    if contains(line, 'North(cm/s)')
@@ -23,7 +22,6 @@ data = zeros(maxCnt, length(head));
 for rowIdx = 1:maxCnt
    line = fgetl(f); 
    if ~ischar(line)
-       disp('END OF THE DOCUMENT FOUND');
        break;
    end
    

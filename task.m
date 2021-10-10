@@ -51,20 +51,20 @@ end
 function RunFigureCreation(depthIndices, filename, ranges, stations, figureTitle) 
 
 % Parsing the file
-[Vn, Ve, T, H0] = LoadData(filename);
+[Vn, Ve, T, H0] = sr_load_data(filename);
 
 % Extracting this depth information only
-[Vn, Ve, H0] = ExtractDepths(Vn, Ve, H0, depthIndices);
+[Vn, Ve, H0] = sr_extract_depths(Vn, Ve, H0, depthIndices);
 
 % Building the figure
 YLim = [H0(1)-0.3*(H0(end)-H0(1)) H0(end) + 0.3 * (H0(end)-H0(1))];
-ax = BuildFigure(T(1), YLim(1), T(end), YLim(2));
+ax = sr_build_figure(T(1), YLim(1), T(end), YLim(2));
 
-% Running the VisualizeRanges() function
-VisualizeRanges(ax, ranges); 
+% Running the sr_visualize_ranges() function
+sr_visualize_ranges(ax, ranges); 
 
 % Adding the labels
-AddStationLabels(ax, ranges, stations);
+sr_add_station_labels(ax, ranges, stations);
 
 % Put title
 title(figureTitle);
@@ -76,28 +76,28 @@ rangesCnt = length(ranges);
 
 % Showing non ranges
 rangeInterval = [T(1) ranges(1)];
-[vn, ve, t] = ExtractTimeInterval(Vn, Ve, T, rangeInterval);
+[vn, ve, t] = sr_extract_time_interval(Vn, Ve, T, rangeInterval);
 screenCoef = 1 / length(H0) / 4;
-VisualizeProfiles(ax, vn, ve, t, H0, NONSTATION_VECTORS_COLOR, screenCoef);
+sr_visualize_profiles(ax, vn, ve, t, H0, NONSTATION_VECTORS_COLOR, screenCoef);
 for stationIdx = 1:rangesCnt
     if stationIdx > 1
         rangeInterval = [ranges(stationIdx-1, 2) ranges(stationIdx, 1)];
-        [vn, ve, t] = ExtractTimeInterval(Vn, Ve, T, rangeInterval);
-        VisualizeProfiles(ax, vn, ve, t, H0, NONSTATION_VECTORS_COLOR, screenCoef);
+        [vn, ve, t] = sr_extract_time_interval(Vn, Ve, T, rangeInterval);
+        sr_visualize_profiles(ax, vn, ve, t, H0, NONSTATION_VECTORS_COLOR, screenCoef);
     end
    figure(gcf);
 end
 rangeInterval = [ranges(end) T(end)];
-[vn, ve, t] = ExtractTimeInterval(Vn, Ve, T, rangeInterval);
-VisualizeProfiles(ax, vn, ve, t, H0, NONSTATION_VECTORS_COLOR, screenCoef);
+[vn, ve, t] = sr_extract_time_interval(Vn, Ve, T, rangeInterval);
+sr_visualize_profiles(ax, vn, ve, t, H0, NONSTATION_VECTORS_COLOR, screenCoef);
 
 % Showing the ranges
 for stationIdx = 1:rangesCnt
-    [stationVn, stationVe, stationT] = ExtractTimeInterval(Vn, Ve, T, ranges(stationIdx, :));
-    VisualizeProfiles(ax, stationVn, stationVe, stationT, H0, STATION_VECTORS_COLOR, screenCoef);
+    [stationVn, stationVe, stationT] = sr_extract_time_interval(Vn, Ve, T, ranges(stationIdx, :));
+    sr_visualize_profiles(ax, stationVn, stationVe, stationT, H0, STATION_VECTORS_COLOR, screenCoef);
     figure(gcf);
 end
 
-PutScaleVector(ax, screenCoef);
+sr_put_scale_vector(ax, screenCoef);
 
 end

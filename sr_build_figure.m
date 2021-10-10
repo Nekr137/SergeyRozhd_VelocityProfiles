@@ -1,4 +1,4 @@
-function ax = BuildFigure(xmin, ymin, xmax, ymax)
+function ax = sr_build_figure(xmin, ymin, xmax, ymax)
 figureHandler = figure;    % new figure
 hold on;                   % Enabled not removing the old lines if new one is created.
 sz = get(0, 'ScreenSize'); % Getting your screen size

@@ -1,4 +1,4 @@
-function [oVn, oVe, oH] = ExtractDepths(iVn, iVe, iH, aDepthIndices)
+function [oVn, oVe, oH] = sr_extract_depths(iVn, iVe, iH, aDepthIndices)
 
 [~, existingIndices] = find(aDepthIndices <= length(iH) & aDepthIndices >=1);
 aDepthIndices = aDepthIndices(existingIndices);

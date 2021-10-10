@@ -6,8 +6,8 @@ function task2_map
 filename1 = 'DATA_000p.000';
 filename2 = 'DATA_003p.000';
 
-[ranges1, ranges2, stations1, stations2, figureTitle1, figureTitle2] = GetRangesAndStations();
-coordinates = StationCoordinates();
+[ranges1, ranges2, stations1, stations2, figureTitle1, figureTitle2] = sr_get_ranges_and_stations();
+coordinates = sr_get_station_coordinates();
 
 
 fig = figure;
@@ -19,19 +19,19 @@ s4 = subplot(224);
 depth1 = 1;
 depth2 = 4;
 
-LoadCoastLineMap(s1);
+sr_load_coastline_map(s1);
 title('08/10/21');
 ShowMap(s1, coordinates(1:8, :), depth1, filename1, ranges1);
 
-LoadCoastLineMap(s2);
+sr_load_coastline_map(s2);
 title('08/10/21');
 ShowMap(s2, coordinates(1:8, :), depth2, filename1, ranges1);
 
-LoadCoastLineMap(s3);
+sr_load_coastline_map(s3);
 title('08/11/21');
 ShowMap(s3, coordinates(9:16, :), depth1, filename2, ranges2);
 
-LoadCoastLineMap(s4);
+sr_load_coastline_map(s4);
 title('08/11/21');
 ShowMap(s4, coordinates(9:16, :), depth2, filename2, ranges2);
 
@@ -40,7 +40,7 @@ end
 function ShowMap(ax, coordinates, depthIndices, filename, ranges) 
 
 % Parsing the file
-[Vn, Ve, T, H0] = LoadData(filename);
+[Vn, Ve, T, H0] = sr_load_data(filename);
 
 % Uncomment to check if visualization is correct
 % [s1, s2] = size(Vn);
@@ -53,14 +53,14 @@ str = [titleStr ', depth: ' num2str(H0(depthIndices(1)))];
 set(titleHandler, 'String', str);
 
 % Extracting this depth information only
-[Vn, Ve, H0] = ExtractDepths(Vn, Ve, H0, depthIndices);
+[Vn, Ve, H0] = sr_extract_depths(Vn, Ve, H0, depthIndices);
 rangesCnt = length(ranges);
 
 depthColors = [[1 0 0]; [0 0 1]; [0 1 0]; [1 1 0]; [1 0 1]; [1 1 0]];
 
 for stationIdx = 1:rangesCnt 
     coo = coordinates(stationIdx, :); % station coordinate
-    [stationVn, stationVe, stationT] = ExtractTimeInterval(Vn, Ve, T, ranges(stationIdx, :));
+    [stationVn, stationVe, stationT] = sr_extract_time_interval(Vn, Ve, T, ranges(stationIdx, :));
     
 %     for depthIdx = 1:length(H0)
 %         for timeIdx = 1:length(stationVn)
@@ -72,15 +72,15 @@ for stationIdx = 1:rangesCnt
 %         end
 %     end
 
-    [vn, ve, t] = smoothData(stationVn, stationVe, stationT);
+    [vn, ve, t] = sr_smooth_data(stationVn, stationVe, stationT);
     
     for depthIdx = 1:length(t)
         color = depthColors(min(depthIdx,length(depthColors)), :);
-        ShowVectorOnMap(ax, coo(1), coo(2), ve(depthIdx), vn(depthIdx), color);
+        sr_show_vector_on_map(ax, coo(1), coo(2), ve(depthIdx), vn(depthIdx), color);
     end
 end
 
-PutScaleVectorOnMap(ax);
+sr_put_scale_vector_on_map(ax);
 end
 
 

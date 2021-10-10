@@ -1,4 +1,4 @@
-function ShowVectorOnMap(ax, pe, pn, ve, vn, color, lineWidth)
+function sr_show_vector_on_map(ax, pe, pn, ve, vn, color, lineWidth)
 
 if ~exist('lineWidth', 'var')
     lineWidth = 0.3;

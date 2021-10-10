@@ -1,4 +1,4 @@
-function VisualizeProfiles(ax, Vn, Ve, T, H0, color, screenCoef)
+function sr_visualize_profiles(ax, Vn, Ve, T, H0, color, screenCoef)
 timeRange  = diff(get(ax,'XLim'));   % time range coefficient
 depthRange = diff(get(ax,'YLim'));   % depth range coefficient
 
