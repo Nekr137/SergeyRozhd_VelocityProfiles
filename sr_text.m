@@ -21,7 +21,11 @@ if strcmp(position, 'tr')
 end
 if strcmp(position, 'bl')
     pos(2) = pos(2) - 0.7 * height;
-    pos(1) = pos(1) - width;
+    pos(1) = pos(1) - 0.7 * width;
+end
+if strcmp(position, 'bll')
+    pos(2) = pos(2) - 0.7 * height;
+    pos(1) = pos(1) - 0.7 * 2.0 * width;
 end
 set(h, 'Position', pos);
 end
