@@ -1,6 +1,6 @@
 function sr_create_figure(ax, Ve, Vn, T, H0, ranges, stationSmoothedVectorsColor, stationVectorColors, nonstationVectorsColor, screenCoef)
 
-rangesCnt = length(ranges);
+[rangesCnt, ~] = size(ranges);
 
 % Showing non ranges
 rangeInterval = [T(1) ranges(1)];

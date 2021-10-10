@@ -33,7 +33,7 @@ for rowIdx = 1:maxCnt
    for colIdx = 1:length(row)
        str = cell2mat(row(colIdx));
        if contains(str, ':')
-           digitRow(colIdx) = datenum(cell2mat(row(2)), 'dd.mm.yy HH:MM:SS');
+           digitRow(colIdx) = datenum(cell2mat(row(colIdx)), 'dd.mm.yy HH:MM:SS');
            continue;
        end
        
