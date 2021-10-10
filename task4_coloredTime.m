@@ -15,6 +15,7 @@ coo.ship = sr_get_station_coordinates();
 
 sr_load_coastline_map(ax);
 sr_put_scale_vector_on_map(ax);
+sr_put_stations_on_map(ax);
 
 % -------------------------------------------------------------------------
 

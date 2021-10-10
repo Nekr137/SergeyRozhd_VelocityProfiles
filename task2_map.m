@@ -81,6 +81,7 @@ for stationIdx = 1:rangesCnt
 end
 
 sr_put_scale_vector_on_map(ax);
+sr_put_stations_on_map(ax);
 end
 
 
