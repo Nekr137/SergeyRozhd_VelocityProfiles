@@ -1,8 +1,14 @@
 function task2
+% depth [m]
+% red - 1-8
+% blue - dvs data
+% m/s 
 [filename1, filename2] = sr_get_test_filenames();
 [ranges1, ranges2, stations1, stations2, figureTitle1, figureTitle2] = sr_get_ranges_and_stations();
 RunFigureCreation(filename1, ranges1, stations1, figureTitle1);
+sr_save_figure(gcf, 'output_task_2_fig_1');
 RunFigureCreation(filename2, ranges2, stations2, figureTitle2);
+sr_save_figure(gcf, 'output_task_2_fig_2');
 end
 
 

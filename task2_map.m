@@ -1,4 +1,9 @@
 function task2_map
+
+% remove non-visualized stations
+% depth extension
+% make vectors same at different figures
+
 % The task from 2021-10-07
 % Placed smoothing vectors on the MAP
 
@@ -9,35 +14,33 @@ filename2 = 'DATA_003p.000';
 [ranges1, ranges2, stations1, stations2, figureTitle1, figureTitle2] = sr_get_ranges_and_stations();
 coordinates = sr_get_station_coordinates();
 
-
-fig = figure;
-s1 = subplot(221);
-s2 = subplot(222);
-s3 = subplot(223);
-s4 = subplot(224);
-
 depth1 = 1;
 depth2 = 4;
 
-sr_load_coastline_map(s1);
-title('08/10/21');
-ShowMap(s1, coordinates(1:8, :), depth1, filename1, ranges1);
 
-sr_load_coastline_map(s2);
-title('08/10/21');
-ShowMap(s2, coordinates(1:8, :), depth2, filename1, ranges1);
+ShowMap(coordinates(1:8, :), depth1, filename1, ranges1, '08/10/21');
+sr_save_figure(gcf, 'output_task_2_map_fig_1');
 
-sr_load_coastline_map(s3);
-title('08/11/21');
-ShowMap(s3, coordinates(9:16, :), depth1, filename2, ranges2);
+ShowMap(coordinates(1:8, :), depth2, filename1, ranges1, '08/10/21');
+sr_save_figure(gcf, 'output_task_2_map_fig_2');
 
-sr_load_coastline_map(s4);
-title('08/11/21');
-ShowMap(s4, coordinates(9:16, :), depth2, filename2, ranges2);
+ShowMap(coordinates(9:16, :), depth1, filename2, ranges2, '08/11/21');
+sr_save_figure(gcf, 'output_task_2_map_fig_3');
+
+ShowMap(coordinates(9:16, :), depth2, filename2, ranges2, '08/11/21');
+sr_save_figure(gcf, 'output_task_2_map_fig_4');
+
+
 
 end
 
-function ShowMap(ax, coordinates, depthIndices, filename, ranges) 
+function ShowMap(coordinates, depthIndices, filename, ranges, figureTitle) 
+
+fig = figure;
+sz = get(0, 'ScreenSize'); % Getting your screen size
+set(gcf, 'position', [0 0 min(sz(3),sz(4))*0.9 min(sz(3),sz(4))*0.9]);
+ax = gca;
+sr_load_coastline_map(ax);
 
 % Parsing the file
 [Vn, Ve, T, H0] = sr_load_data(filename);
@@ -48,8 +51,7 @@ function ShowMap(ax, coordinates, depthIndices, filename, ranges)
 % Vn = 0.707 * (ones(s1, s2));
 
 titleHandler = get(ax, 'Title');
-titleStr = get(titleHandler, 'String');
-str = [titleStr ', depth: ' num2str(H0(depthIndices(1)))];
+str = [figureTitle ', depth: ' num2str(H0(depthIndices(1)))];
 set(titleHandler, 'String', str);
 
 % Extracting this depth information only

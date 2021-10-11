@@ -26,6 +26,7 @@ stations1 = {'st(1)', 'st(2)', 'st2', 'st3', 'st4', 'st5', 'st6', 'st7', 'st8'};
 figureTitle1 = '08/10/21';
 
 RunFigureCreation(depthIndices, filename1, ranges1, stations1, figureTitle1);
+sr_save_figure(gcf, 'output_task_1_fig_1');
 
 % -------------------------------------------------------------------------
 
@@ -44,6 +45,7 @@ stations2 = {'stn16', 'stn17', 'stn18', 'stn19', 'stn20', 'stn21', 'stn22', 'stn
 figureTitle2 = '08/11/21';
 
 RunFigureCreation(depthIndices, filename2, ranges2, stations2, figureTitle2);
+sr_save_figure(gcf, 'output_task_1_fig_2');
 
 % -------------------------------------------------------------------------
 end
