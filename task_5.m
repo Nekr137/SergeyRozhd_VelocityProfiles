@@ -10,8 +10,13 @@ function task_5()
 [ranges1, ranges2, stations1, stations2, figureTitle1, figureTitle2] = sr_get_ranges_and_stations();
 
 RunDayVisualization(Vn, Ve, T, H0, ranges1, stations1, figureTitle1);
+sr_save_figure(gcf, 'output_task_5_fig_1');
+
 RunDayVisualization(Vn, Ve, T, H0, ranges2, stations2, figureTitle2);
+sr_save_figure(gcf, 'output_task_5_fig_2');
+
 RunWholeIntervalVisualization(Vn, Ve, T, 1.0);
+sr_save_figure(gcf, 'output_task_5_fig_3');
 
 end
 
@@ -22,6 +27,7 @@ screenCoef = 1 / length(H0) / 50;
 YLim = [0 2];
 XLim = [T(1)-0.05*(T(end) - T(1)) T(end) + 0.05 * (T(end)-T(1))];
 ax = sr_build_figure(XLim(1), YLim(1), XLim(2), YLim(2));
+datetick('x','yy/mm/dd HH:MM');
 
 sr_visualize_profiles(ax, Vn, Ve, T, H0, [1 0 0], screenCoef);
 
