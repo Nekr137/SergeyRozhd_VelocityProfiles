@@ -35,7 +35,7 @@ ylabel('');
 
 sr_visualize_profiles(ax, Vn, Ve, T, H0, [1 0 0], screenCoef);
 
-title('Данные ветра, данные: 2021/08/09 - 2021/08/13');
+title('Данные ветра, даты: 2021/08/09 - 2021/08/13');
 sr_put_scale_vector(ax, screenCoef);
 end
 

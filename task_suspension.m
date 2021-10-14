@@ -23,7 +23,7 @@ sr_put_scale_vector_on_map(ax1);
 sr_put_stations_on_map(ax1);
 [Vn, Ve, T, H0] = sr_load_data(filename1);
 [Vn, Ve, H0] = sr_extract_depths(Vn, Ve, H0, depth1);
-set(get(ax1, 'Title'), 'String', ['10/08/21, depth = ' num2str(H0(depth1))]);
+set(get(ax1, 'Title'), 'String', ['10-11/08/21, depth = ' num2str(H0(depth1))]);
 ShowDayVectors(ax1, Vn, Ve, T, ranges1, coo(1:8, :), suspension1);
 [Vn, Ve, T, H0] = sr_load_data(filename2);
 [Vn, Ve, H0] = sr_extract_depths(Vn, Ve, H0, depth1);
