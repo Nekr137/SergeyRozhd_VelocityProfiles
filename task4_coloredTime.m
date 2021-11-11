@@ -40,7 +40,7 @@ ShowDayVectors(ax, Vn, Ve, T, ranges2, coo.ship(9:16, :),colors(9:16, :), 0.3);
 Vn = Vn./1000; Ve = Ve./1000;
 ShowDayVectors(ax, Vn, Ve, T, ranges1, coo.ABS1_adcp300, colors(1:8, :), 0.3);
 ShowDayVectors(ax, Vn, Ve, T, ranges2, coo.ABS1_adcp300, colors(9:16, :), 0.3);
-sr_text(coo.ABS1_adcp300(1), coo.ABS1_adcp300(2), 'ABS1\_adcp300', 'bl', [0.5 0 0], 7);
+sr_text(ax, coo.ABS1_adcp300(1), coo.ABS1_adcp300(2), 'ABS1\_adcp300', 'bl', [0.5 0 0], 7);
 
 % -------------------------------------------------------------------------
 
@@ -49,7 +49,7 @@ sr_text(coo.ABS1_adcp300(1), coo.ABS1_adcp300(2), 'ABS1\_adcp300', 'bl', [0.5 0 
 Vn = Vn./1000; Ve = Ve./1000;
 ShowDayVectors(ax, Vn, Ve, T, ranges1, coo.ABS2_DVS, colors(1:8, :), 0.3);
 ShowDayVectors(ax, Vn, Ve, T, ranges2, coo.ABS2_DVS, colors(9:16, :), 0.3);
-sr_text(coo.ABS2_DVS(1), coo.ABS2_DVS(2), 'ABS2\_DVS', 'bl', [0.5 0 0], 7);
+sr_text(ax, coo.ABS2_DVS(1), coo.ABS2_DVS(2), 'ABS2\_DVS', 'bl', [0.5 0 0], 7);
 
 sr_save_figure(gcf, 'output_task_4_colored_time_fig_1');
 % -------------------------------------------------------------------------
@@ -70,7 +70,7 @@ sr_put_stations_on_map(ax);
 Vn = Vn./100; Ve = Ve./100;
 ShowDayVectors(ax, Vn, Ve, T, ranges1, coo.ABS2_RCM, colors(1:8, :), 0.3);
 ShowDayVectors(ax, Vn, Ve, T, ranges2, coo.ABS2_RCM, colors(9:16, :), 0.3);
-sr_text(coo.ABS2_RCM(1), coo.ABS2_RCM(2), 'ABS2\_RCM\_DVS', 'bl', [0.5 0 0], 7);
+sr_text(ax, coo.ABS2_RCM(1), coo.ABS2_RCM(2), 'ABS2\_RCM\_DVS', 'bl', [0.5 0 0], 7);
 
 sr_save_figure(gcf, 'output_task_4_colored_time_fig_2');
 end

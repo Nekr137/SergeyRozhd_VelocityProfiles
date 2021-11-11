@@ -1,6 +1,6 @@
-function height = sr_text(x, y, str, position, color, fontSize)
+function height = sr_text(ax, x, y, str, position, color, fontSize)
 
-h = text(x, y, str);
+h = text(ax, x, y, str);
 
 if ~exist('color', 'var'); color = [1 0 0]; end
 set(h, 'Color', color);
