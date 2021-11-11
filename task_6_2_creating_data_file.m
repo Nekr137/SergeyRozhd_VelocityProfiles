@@ -1,4 +1,4 @@
-function task_creating_data_file()
+function task_6_2_creating_data_file()
 
 % The task from 2021-10-07
 % Placed smoothing vectors on the MAP

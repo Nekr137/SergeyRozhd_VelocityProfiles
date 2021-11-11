@@ -1,4 +1,4 @@
-function task2
+function task_2()
 % depth [m]
 % red - 1-8
 % blue - dvs data

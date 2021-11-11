@@ -1,4 +1,4 @@
-function task2_map
+function task_2_map()
 
 % remove non-visualized stations
 % depth extension

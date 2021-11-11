@@ -1,4 +1,4 @@
-function task6_columns
+function task_6_columns()
 
 % set depth labels as meters
 

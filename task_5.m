@@ -4,7 +4,7 @@ function task_5()
 % russian labels, titles
 % данные ветра, даты from - to
 % axis (bottom right) russian
-[Vn, Ve, T, H0] = sr_load_task5('task5.txt');
+[Vn, Ve, T, H0] = sr_load_task5('task_5.txt');
 
 % Uncomment to debug
 % [s1, s2] = size(Vn);

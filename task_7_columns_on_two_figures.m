@@ -1,4 +1,4 @@
-function task7_columns_on_two_figures
+function task_7_columns_on_two_figures()
 % 2021-03-11
 % The same as task6_columns, but data was split into two days
 

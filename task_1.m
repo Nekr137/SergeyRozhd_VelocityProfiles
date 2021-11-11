@@ -1,4 +1,4 @@
-function task
+function task_1()
 % The task from 2021-10-01 - visualize velocities, ranges, profiles,
 % station labels
 

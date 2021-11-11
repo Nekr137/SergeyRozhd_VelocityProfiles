@@ -1,4 +1,4 @@
-function task4_coloredTime()
+function task_4_coloredTime()
 
 % 4 figures (1 day, 2day, RCM(10e) RCM(11e), mm/sec (just label)
 

@@ -1,4 +1,4 @@
-function task_suspension()
+function task_3_suspension()
 
 % set depth labels as meters
 
