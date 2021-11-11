@@ -16,7 +16,7 @@ angles = deg2rad(dirPerDepth);
 Vn = cos(angles) .* magPerDepth;
 Ve = sin(angles) .* magPerDepth;
 T = 0.5 * (Time1 + Time2);
-H0 = 0.5 * 1:s2 + 3.0;
+H0 = 0.5 * (1:s2) + 3.0;
 Vn = Vn';
 Ve = Ve';
 end
