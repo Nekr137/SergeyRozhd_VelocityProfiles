@@ -6,7 +6,8 @@ function task_8_correlation()
 [Vn.wind, Ve.wind, T.wind, ~] = sr_load_task8('task_8_veter(copy).dat');
 
 % Extracting the interesting time interval
-timeInterval = [datenum('2021-08-09, 20:41', 'yyyy-mm-dd, HH:MM') T.wind(end)];
+% timeInterval = [datenum('2021-08-09, 20:41', 'yyyy-mm-dd, HH:MM') T.wind(end)];
+timeInterval = [datenum('2021-08-09, 20:32', 'yyyy-mm-dd, HH:MM') T.wind(end)];
 [Vn.windInterv, Ve.windInterv, T.windInterv] = sr_extract_time_interval(Vn.wind, Ve.wind, T.wind, timeInterval);
 
 % Find mean values
@@ -52,7 +53,7 @@ Ve.abs2 = Ve.abs2 ./ 50;
 %% Visualization of (1) and (2)
 figure; 
 
-ax1 = subplot(311);
+ax1 = subplot(211);
 hold on; box on; grid on;
 plot(T.wind, Ve.wind, 'Marker', 'None', 'Color', [0.8 0.8 0.8]);
 plot(T.wndm, Ve.wndm, 'k.-', T.abs1, Ve.abs1, 'r.-', T.abs2, Ve.abs2, 'b.-');
@@ -62,7 +63,7 @@ xlabel('Time');
 datetick('x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
 legend('wind', 'wind mean', 'abs1', 'abs2');
 
-ax2 = subplot(312);
+ax2 = subplot(212);
 hold on; box on; grid on;
 plot(T.wind, Vn.wind, 'Marker', 'None', 'Color', [0.8 0.8 0.8]);
 plot(T.wndm, Vn.wndm, 'k.-', T.abs1, Vn.abs1, 'r.-', T.abs2, Vn.abs2, 'b.-');
@@ -82,6 +83,14 @@ interv = [tmin tmax];
 [Vn.abs2, Ve.abs2, T.abs2] = sr_extract_time_interval(Vn.abs2, Ve.abs2, T.abs2, interv);
 [Vn.wndm, Ve.wndm, T.wndm] = sr_extract_time_interval(Vn.wndm, Ve.wndm, T.wndm, interv);
 
+minLen = min([length(Vn.abs1) length(Vn.abs2) length(Vn.wndm)]);
+Vn.abs1 = Vn.abs1(1:minLen);
+Vn.abs2 = Vn.abs2(1:minLen);
+Vn.wndm = Vn.wndm(1:minLen);
+Ve.abs1 = Ve.abs1(1:minLen);
+Ve.abs2 = Ve.abs2(1:minLen);
+Ve.wndm = Ve.wndm(1:minLen);
+
 assert(length(Vn.abs1) == length(Vn.abs2), '[ ! ] Check your data, length must be equal');
 assert(length(Vn.abs1) == length(Vn.wndm), '[ ! ] Check your data, length must be equal');
 
@@ -89,22 +98,118 @@ r.vn_abs1_wndm = sr_corr(Vn.abs1, Vn.wndm);
 r.vn_abs2_wndm = sr_corr(Vn.abs2, Vn.wndm);
 r.ve_abs1_wndm = sr_corr(Ve.abs1, Ve.wndm);
 r.ve_abs2_wndm = sr_corr(Ve.abs2, Ve.wndm);
+r.ve_abs1_vn_wndm = sr_corr(Ve.abs1, Vn.wndm);
+r.ve_abs2_vn_wndm = sr_corr(Ve.abs2, Vn.wndm);
+r.vn_abs1_ve_wndm = sr_corr(Vn.abs1, Ve.wndm);
+r.vn_abs2_ve_wndm = sr_corr(Vn.abs2, Ve.wndm);
 
 %% Visualisation of (3)
-ax3 = subplot(325); hold on; box on; grid on;
 vv = 1:length(r.vn_abs1_wndm);
-plot(vv, r.vn_abs1_wndm, 'r.');
-plot(vv, r.vn_abs2_wndm, 'b.');
-xlabel('N = 1,2,3,...');
-ylabel('r');
-legend('abs1-wind', 'abs2-wind');
-title('Vn');
 
-ax4 = subplot(326); hold on; box on; grid on;
-plot(vv, r.ve_abs1_wndm, 'r.');
-plot(vv, r.ve_abs2_wndm, 'b.');
+figure;
+subplot(421);
+plot(Vn.abs1, Vn.wndm, 'k.');
+xlabel('Vn abs1');
+ylabel('Vn wind');
+box on; grid on;
+
+subplot(422);
+plot(Vn.abs2, Vn.wndm, 'k.');
+xlabel('Vn abs2');
+ylabel('Vn wind');
+box on; grid on;
+
+subplot(423);
+plot(Ve.abs1, Ve.wndm, 'k.');
+xlabel('Ve abs1');
+ylabel('Ve wind');
+box on; grid on;
+
+subplot(424);
+plot(Ve.abs2, Ve.wndm, 'k.');
+xlabel('Ve abs2');
+ylabel('Ve wind');
+box on; grid on;
+
+subplot(425);
+plot(Ve.abs1, Vn.wndm, 'k.');
+xlabel('Ve abs1');
+ylabel('Vn wind');
+box on; grid on;
+
+subplot(426);
+plot(Ve.abs2, Vn.wndm, 'k.');
+xlabel('Ve abs2');
+ylabel('Vn wind');
+box on; grid on;
+
+subplot(427);
+plot(Vn.abs1, Ve.wndm, 'k.');
+xlabel('Vn abs1');
+ylabel('Ve wind');
+box on; grid on;
+
+subplot(428);
+plot(Vn.abs2, Ve.wndm, 'k.');
+xlabel('Vn abs2');
+ylabel('Ve wind');
+box on; grid on;
+
+figure;
+subplot(421);
+plot(vv, r.vn_abs1_wndm, 'k.-');
 xlabel('N = 1,2,3,...');
 ylabel('r');
-legend('abs1-wind', 'abs2-wind');
-title('Ve');
+legend('Vn abs1 & Vn wind');
+box on; grid on;
+
+subplot(422);
+plot(vv, r.vn_abs2_wndm, 'k.-');
+xlabel('N = 1,2,3,...');
+ylabel('r');
+legend('Vn abs2 & Vn wind');
+box on; grid on;
+
+subplot(423);
+plot(vv, r.ve_abs1_wndm, 'k.-');
+xlabel('N = 1,2,3,...');
+ylabel('r');
+legend('Ve abs1 & Ve wind');
+box on; grid on;
+
+subplot(424);
+plot(vv, r.ve_abs1_wndm, 'k.-');
+xlabel('N = 1,2,3,...');
+ylabel('r');
+legend('Ve abs2 & Ve wind');
+box on; grid on;
+
+subplot(425);
+plot(vv, r.ve_abs1_vn_wndm, 'k.-');
+xlabel('N = 1,2,3,...');
+ylabel('r');
+legend('Ve abs1 & Vn wind');
+box on; grid on;
+
+subplot(426);
+plot(vv, r.ve_abs2_vn_wndm, 'k.-');
+xlabel('N = 1,2,3,...');
+ylabel('r');
+legend('Ve abs2 & Vn wind');
+box on; grid on;
+
+subplot(427);
+plot(vv, r.vn_abs1_ve_wndm, 'k.-');
+xlabel('N = 1,2,3,...');
+ylabel('r');
+legend('Vn abs1 & Ve wind');
+box on; grid on;
+
+subplot(428);
+plot(vv, r.vn_abs2_ve_wndm, 'k.-');
+xlabel('N = 1,2,3,...');
+ylabel('r');
+legend('Vn abs2 & Ve wind');
+box on; grid on;
+
 end
