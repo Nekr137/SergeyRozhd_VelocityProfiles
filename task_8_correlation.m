@@ -54,8 +54,8 @@ figure;
 
 ax1 = subplot(311);
 hold on; box on; grid on;
-plot(T.wind, Ve.wind, 'Marker', '.', 'Color', [0.8 0.8 0.8]);
-plot(T.wndm, Ve.wndm, 'g.-', T.abs1, Ve.abs1, 'r.-', T.abs2, Ve.abs2, 'b.-');
+plot(T.wind, Ve.wind, 'Marker', 'None', 'Color', [0.8 0.8 0.8]);
+plot(T.wndm, Ve.wndm, 'k.-', T.abs1, Ve.abs1, 'r.-', T.abs2, Ve.abs2, 'b.-');
 ylabel('Vn');
 set(ax1, 'XLim', [T.wind(1) T.wind(end)]);
 xlabel('Time');
@@ -64,8 +64,8 @@ legend('wind', 'wind mean', 'abs1', 'abs2');
 
 ax2 = subplot(312);
 hold on; box on; grid on;
-plot(T.wind, Vn.wind, 'Marker', '.', 'Color', [0.8 0.8 0.8]);
-plot(T.wndm, Vn.wndm, 'g.-', T.abs1, Vn.abs1, 'r.-', T.abs2, Vn.abs2, 'b.-');
+plot(T.wind, Vn.wind, 'Marker', 'None', 'Color', [0.8 0.8 0.8]);
+plot(T.wndm, Vn.wndm, 'k.-', T.abs1, Vn.abs1, 'r.-', T.abs2, Vn.abs2, 'b.-');
 set(ax2, 'XLim', [T.wind(1) T.wind(end)]);
 ylabel('Ve');
 xlabel('Time');
