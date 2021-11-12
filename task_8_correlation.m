@@ -91,20 +91,28 @@ Ve.abs1 = Ve.abs1(1:minLen);
 Ve.abs2 = Ve.abs2(1:minLen);
 Ve.wndm = Ve.wndm(1:minLen);
 
-assert(length(Vn.abs1) == length(Vn.abs2), '[ ! ] Check your data, length must be equal');
-assert(length(Vn.abs1) == length(Vn.wndm), '[ ! ] Check your data, length must be equal');
+% lvl = 20;
+% Vn.abs1 = smooth(Vn.abs1, lvl)';
+% Vn.abs2 = smooth(Vn.abs2, lvl)';
+% Vn.wndm = smooth(Vn.wndm, lvl)';
+% Ve.abs1 = smooth(Ve.abs1, lvl)';
+% Ve.abs2 = smooth(Ve.abs2, lvl)';
+% Ve.wndm = smooth(Ve.wndm, lvl)';
 
-r.vn_abs1_wndm = sr_corr(Vn.abs1, Vn.wndm);
-r.vn_abs2_wndm = sr_corr(Vn.abs2, Vn.wndm);
-r.ve_abs1_wndm = sr_corr(Ve.abs1, Ve.wndm);
-r.ve_abs2_wndm = sr_corr(Ve.abs2, Ve.wndm);
-r.ve_abs1_vn_wndm = sr_corr(Ve.abs1, Vn.wndm);
-r.ve_abs2_vn_wndm = sr_corr(Ve.abs2, Vn.wndm);
-r.vn_abs1_ve_wndm = sr_corr(Vn.abs1, Ve.wndm);
-r.vn_abs2_ve_wndm = sr_corr(Vn.abs2, Ve.wndm);
+
+lag = 100;
+
+r.vn_abs1_wndm = sr_corr(Vn.abs1, Vn.wndm, lag);
+r.vn_abs2_wndm = sr_corr(Vn.abs2, Vn.wndm, lag);
+r.ve_abs1_wndm = sr_corr(Ve.abs1, Ve.wndm, lag);
+r.ve_abs2_wndm = sr_corr(Ve.abs2, Ve.wndm, lag);
+r.ve_abs1_vn_wndm = sr_corr(Ve.abs1, Vn.wndm, lag);
+r.ve_abs2_vn_wndm = sr_corr(Ve.abs2, Vn.wndm, lag);
+r.vn_abs1_ve_wndm = sr_corr(Vn.abs1, Ve.wndm, lag);
+r.vn_abs2_ve_wndm = sr_corr(Vn.abs2, Ve.wndm, lag);
 
 %% Visualisation of (3)
-vv = 1:length(r.vn_abs1_wndm);
+vv = -lag:lag;
 
 figure;
 subplot(421);
@@ -211,5 +219,8 @@ xlabel('N = 1,2,3,...');
 ylabel('r');
 legend('Vn abs2 & Ve wind');
 box on; grid on;
+
+figure;
+plot(sr_corr(Vn.abs1, Vn.abs1), 'k.-');
 
 end
