@@ -5,6 +5,12 @@ function task_8_correlation()
 % Loading the data
 [Vn.wind, Ve.wind, T.wind, ~] = sr_load_task8('task_8_veter(copy).dat');
 
+% Removing broken data - when time is zero
+remIndices = find(T.wind < 1);
+Vn.wind(remIndices) = [];
+Ve.wind(remIndices) = [];
+T.wind(remIndices) = [];
+
 % Extracting the interesting time interval
 % timeInterval = [datenum('2021-08-09, 20:41', 'yyyy-mm-dd, HH:MM') T.wind(end)];
 timeInterval = [datenum('2021-08-09, 20:32', 'yyyy-mm-dd, HH:MM') T.wind(end)];
@@ -115,112 +121,116 @@ r.vn_abs2_ve_wndm = sr_corr(Vn.abs2, Ve.wndm, lag);
 vv = -lag:lag;
 
 figure;
+function adj(ax)
+    axes(ax);
+    axis square;
+    box on;
+    grid on;
+    xl = get(ax,'XLim');
+    yl = get(ax,'YLim');
+    lim = [min(xl(1), yl(1)); max(xl(2), yl(2))];
+    set(ax, 'XLim', lim);
+    set(ax, 'YLim', lim);
+end
+
 subplot(421);
 plot(Vn.abs1, Vn.wndm, 'k.');
 xlabel('Vn abs1');
 ylabel('Vn wind');
-box on; grid on;
+adj(gca);
 
 subplot(422);
 plot(Vn.abs2, Vn.wndm, 'k.');
 xlabel('Vn abs2');
 ylabel('Vn wind');
-box on; grid on;
+adj(gca);
 
 subplot(423);
 plot(Ve.abs1, Ve.wndm, 'k.');
 xlabel('Ve abs1');
 ylabel('Ve wind');
-box on; grid on;
+adj(gca);
 
 subplot(424);
 plot(Ve.abs2, Ve.wndm, 'k.');
 xlabel('Ve abs2');
 ylabel('Ve wind');
-box on; grid on;
+adj(gca);
 
 subplot(425);
 plot(Ve.abs1, Vn.wndm, 'k.');
 xlabel('Ve abs1');
 ylabel('Vn wind');
-box on; grid on;
+adj(gca);
 
 subplot(426);
 plot(Ve.abs2, Vn.wndm, 'k.');
 xlabel('Ve abs2');
 ylabel('Vn wind');
-box on; grid on;
+adj(gca);
 
 subplot(427);
 plot(Vn.abs1, Ve.wndm, 'k.');
 xlabel('Vn abs1');
 ylabel('Ve wind');
-box on; grid on;
+adj(gca);
 
 subplot(428);
 plot(Vn.abs2, Ve.wndm, 'k.');
 xlabel('Vn abs2');
 ylabel('Ve wind');
-box on; grid on;
+adj(gca);
+
 
 figure;
+function adj2(ax)
+    axes(ax);
+    xlabel('N = 1,2,3,...');
+    ylabel('r');
+    box on; grid on; 
+end
+
 subplot(421);
 plot(vv, r.vn_abs1_wndm, 'k.-');
-xlabel('N = 1,2,3,...');
-ylabel('r');
 legend('Vn abs1 & Vn wind');
-box on; grid on;
+adj2(gca);
 
 subplot(422);
 plot(vv, r.vn_abs2_wndm, 'k.-');
-xlabel('N = 1,2,3,...');
-ylabel('r');
 legend('Vn abs2 & Vn wind');
-box on; grid on;
+adj2(gca);
 
 subplot(423);
 plot(vv, r.ve_abs1_wndm, 'k.-');
-xlabel('N = 1,2,3,...');
-ylabel('r');
 legend('Ve abs1 & Ve wind');
-box on; grid on;
+adj2(gca);
 
 subplot(424);
-plot(vv, r.ve_abs1_wndm, 'k.-');
-xlabel('N = 1,2,3,...');
-ylabel('r');
+plot(vv, r.ve_abs2_wndm, 'k.-');
 legend('Ve abs2 & Ve wind');
-box on; grid on;
+adj2(gca);
 
 subplot(425);
 plot(vv, r.ve_abs1_vn_wndm, 'k.-');
-xlabel('N = 1,2,3,...');
-ylabel('r');
 legend('Ve abs1 & Vn wind');
-box on; grid on;
+adj2(gca);
 
 subplot(426);
 plot(vv, r.ve_abs2_vn_wndm, 'k.-');
-xlabel('N = 1,2,3,...');
-ylabel('r');
 legend('Ve abs2 & Vn wind');
-box on; grid on;
+adj2(gca);
 
 subplot(427);
 plot(vv, r.vn_abs1_ve_wndm, 'k.-');
-xlabel('N = 1,2,3,...');
-ylabel('r');
 legend('Vn abs1 & Ve wind');
-box on; grid on;
+adj2(gca);
 
 subplot(428);
 plot(vv, r.vn_abs2_ve_wndm, 'k.-');
-xlabel('N = 1,2,3,...');
-ylabel('r');
 legend('Vn abs2 & Ve wind');
-box on; grid on;
+adj2(gca);
 
 figure;
-plot(sr_corr(Vn.abs1, Vn.abs1), 'k.-');
+plot(vv, sr_corr(Vn.abs1, Vn.abs1, lag), 'k.-');
 
 end
