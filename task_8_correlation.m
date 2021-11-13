@@ -97,6 +97,7 @@ Ve.abs1 = Ve.abs1(1:minLen);
 Ve.abs2 = Ve.abs2(1:minLen);
 Ve.wndm = Ve.wndm(1:minLen);
 
+% Smoothing ?
 % lvl = 20;
 % Vn.abs1 = smooth(Vn.abs1, lvl)';
 % Vn.abs2 = smooth(Vn.abs2, lvl)';
@@ -104,7 +105,6 @@ Ve.wndm = Ve.wndm(1:minLen);
 % Ve.abs1 = smooth(Ve.abs1, lvl)';
 % Ve.abs2 = smooth(Ve.abs2, lvl)';
 % Ve.wndm = smooth(Ve.wndm, lvl)';
-
 
 lag = 100;
 
@@ -121,116 +121,41 @@ r.vn_abs2_ve_wndm = sr_corr(Vn.abs2, Ve.wndm, lag);
 vv = -lag:lag;
 
 figure;
-function adj(ax)
+function vis1(ax, xx, yy, xlab, ylab)
     axes(ax);
-    axis square;
-    box on;
-    grid on;
-    xl = get(ax,'XLim');
-    yl = get(ax,'YLim');
+    plot(ax, xx, yy, 'k.');
+    axis square; box on; grid on;
+    xl = get(ax,'XLim'); yl = get(ax,'YLim');
     lim = [min(xl(1), yl(1)); max(xl(2), yl(2))];
-    set(ax, 'XLim', lim);
-    set(ax, 'YLim', lim);
+    set(ax, 'XLim', lim); set(ax, 'YLim', lim);
+    xlabel(xlab); ylabel(ylab);
 end
-
-subplot(421);
-plot(Vn.abs1, Vn.wndm, 'k.');
-xlabel('Vn abs1');
-ylabel('Vn wind');
-adj(gca);
-
-subplot(422);
-plot(Vn.abs2, Vn.wndm, 'k.');
-xlabel('Vn abs2');
-ylabel('Vn wind');
-adj(gca);
-
-subplot(423);
-plot(Ve.abs1, Ve.wndm, 'k.');
-xlabel('Ve abs1');
-ylabel('Ve wind');
-adj(gca);
-
-subplot(424);
-plot(Ve.abs2, Ve.wndm, 'k.');
-xlabel('Ve abs2');
-ylabel('Ve wind');
-adj(gca);
-
-subplot(425);
-plot(Ve.abs1, Vn.wndm, 'k.');
-xlabel('Ve abs1');
-ylabel('Vn wind');
-adj(gca);
-
-subplot(426);
-plot(Ve.abs2, Vn.wndm, 'k.');
-xlabel('Ve abs2');
-ylabel('Vn wind');
-adj(gca);
-
-subplot(427);
-plot(Vn.abs1, Ve.wndm, 'k.');
-xlabel('Vn abs1');
-ylabel('Ve wind');
-adj(gca);
-
-subplot(428);
-plot(Vn.abs2, Ve.wndm, 'k.');
-xlabel('Vn abs2');
-ylabel('Ve wind');
-adj(gca);
-
+subplot(421); vis1(gca, Vn.abs1, Vn.wndm, 'Vn abs1', 'Vn wind');
+subplot(422); vis1(gca, Vn.abs2, Vn.wndm, 'Vn abs2', 'Vn wind');
+subplot(423); vis1(gca, Ve.abs1, Ve.wndm, 'Ve abs1', 'Ve wind');
+subplot(424); vis1(gca, Ve.abs2, Ve.wndm, 'Ve abs2', 'Ve wind');
+subplot(425); vis1(gca, Ve.abs1, Vn.wndm, 'Ve abs1', 'Vn wind');
+subplot(426); vis1(gca, Ve.abs2, Vn.wndm, 'Ve abs2', 'Vn wind');
+subplot(427); vis1(gca, Vn.abs1, Ve.wndm, 'Vn abs1', 'Ve wind');
+subplot(428); vis1(gca, Vn.abs2, Ve.wndm, 'Vn abs2', 'Ve wind');
 
 figure;
-function adj2(ax)
-    axes(ax);
-    xlabel('N = 1,2,3,...');
-    ylabel('r');
-    box on; grid on; 
+function vis2(ax, xx, yy, lgnd)
+    axes(ax);     plot(ax, xx, yy, 'k.-');
+    xlabel('N = 1,2,3,...');     ylabel('r');
+    box on;     grid on;
+    set(ax,'YLim',[-1 1]);
+    set(gca,'YTick', [-1.0 -0.6 0 0.6 1.0])
+    legend(lgnd);
 end
+subplot(421); vis2(gca, vv, r.vn_abs1_wndm, 'Vn abs1 & Vn wind');
+subplot(422); vis2(gca, vv, r.vn_abs2_wndm, 'Vn abs2 & Vn wind');
+subplot(423); vis2(gca, vv, r.ve_abs1_wndm, 'Ve abs1 & Ve wind');
+subplot(424); vis2(gca, vv, r.ve_abs2_wndm, 'Ve abs2 & Ve wind');
+subplot(425); vis2(gca, vv, r.ve_abs1_vn_wndm, 'Ve abs1 & Vn wind');
+subplot(426); vis2(gca, vv, r.ve_abs2_vn_wndm, 'Ve abs2 & Vn wind');
+subplot(427); vis2(gca, vv, r.vn_abs1_ve_wndm, 'Vn abs1 & Ve wind');
+subplot(428); vis2(gca, vv, r.vn_abs2_ve_wndm, 'Vn abs2 & Ve wind');
 
-subplot(421);
-plot(vv, r.vn_abs1_wndm, 'k.-');
-legend('Vn abs1 & Vn wind');
-adj2(gca);
-
-subplot(422);
-plot(vv, r.vn_abs2_wndm, 'k.-');
-legend('Vn abs2 & Vn wind');
-adj2(gca);
-
-subplot(423);
-plot(vv, r.ve_abs1_wndm, 'k.-');
-legend('Ve abs1 & Ve wind');
-adj2(gca);
-
-subplot(424);
-plot(vv, r.ve_abs2_wndm, 'k.-');
-legend('Ve abs2 & Ve wind');
-adj2(gca);
-
-subplot(425);
-plot(vv, r.ve_abs1_vn_wndm, 'k.-');
-legend('Ve abs1 & Vn wind');
-adj2(gca);
-
-subplot(426);
-plot(vv, r.ve_abs2_vn_wndm, 'k.-');
-legend('Ve abs2 & Vn wind');
-adj2(gca);
-
-subplot(427);
-plot(vv, r.vn_abs1_ve_wndm, 'k.-');
-legend('Vn abs1 & Ve wind');
-adj2(gca);
-
-subplot(428);
-plot(vv, r.vn_abs2_ve_wndm, 'k.-');
-legend('Vn abs2 & Ve wind');
-adj2(gca);
-
-figure;
-plot(vv, sr_corr(Vn.abs1, Vn.abs1, lag), 'k.-');
-
+figure; vis2(gca, vv, sr_corr(Vn.abs1, Vn.abs1, lag), 'Vn abs1 & Vn abs1');
 end
