@@ -16,7 +16,7 @@ buildContourPlot(subplot(513), T.ABS1, timeLim, Ve.ABS1, H0.ABS1, step.ABS1, 'AB
 buildContourPlot(subplot(514), T.ABS2, timeLim, Vn.ABS2, H0.ABS2, step.ABS2, 'ABS2, U-component');
 buildContourPlot(subplot(515), T.ABS2, timeLim, Ve.ABS2, H0.ABS2, step.ABS2, 'ABS2, V-component');
 
-colormap jet
+colormap default
 
 %% Time interval
 
@@ -72,7 +72,7 @@ set(c,'EdgeColor',[0.5 0.5 0.5]);
 set(c,'LevelStep',levelStep);
 title(titl,'FontSize',10,'FontWeight','normal');
 ylabel('Depth, m');
-% colorbar;
+colorbar;
 caxis([-200 200]);
 set(ax,'XLim', timeLim);
 datetick('x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
