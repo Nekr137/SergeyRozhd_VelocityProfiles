@@ -16,23 +16,10 @@ T.wind(remIndices) = [];
 timeInterval = [datenum('2021-08-09, 20:32', 'yyyy-mm-dd, HH:MM') T.wind(end)];
 [Vn.windInterv, Ve.windInterv, T.windInterv] = sr_extract_time_interval(Vn.wind, Ve.wind, T.wind, timeInterval);
 
-% Find mean values
 w = 60 * 20;
-n = length(T.windInterv);
-cnt = ceil(n/w);
-
-% wndm - wind mean
-Vn.wndm = zeros(1, cnt);
-Ve.wndm = zeros(1, cnt);
-T.wndm = zeros(1, cnt);
-
-for k = 1:cnt
-   f = min(w * k + 1, n);
-   s = f - w;
-   Vn.wndm(k) = mean(Vn.windInterv(s:f)); 
-   Ve.wndm(k) = mean(Ve.windInterv(s:f)); 
-   T.wndm(k) = mean(T.windInterv(s:f)); 
-end
+Vn.wndm = sr_find_average_data(Vn.windInterv, w); 
+Ve.wndm = sr_find_average_data(Ve.windInterv, w); 
+T.wndm  = sr_find_average_data(T.windInterv, w); 
 
 
 %  V - north
