@@ -51,7 +51,7 @@ set(ax, 'YDir', 'reverse'); % Made y axis reversed
 screenCoef = 1.0 / 30.0;
 xyScreenRatio = 10.0;
 sr_visualize_profiles(ax, Vn.wndm, Ve.wndm, T.wndm, H0.wind, [1 0 0], screenCoef, xyScreenRatio);
-% sr_put_scale_vector(ax, screenCoef, xyScreenRatio);
+sr_put_scale_vector(ax, screenCoef, xyScreenRatio,'task9Style');
 datetick('x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
 
 end
