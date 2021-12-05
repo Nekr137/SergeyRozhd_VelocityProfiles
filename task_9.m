@@ -59,7 +59,7 @@ set(ax(1),'XLim', timeLim);
 set(ax(1), 'YDir', 'reverse'); % Made y axis reversed
 
 % screenCoef = 1 / length(H0) / 10;
-screenCoef = 1.0 / 30.0;
+screenCoef = 1.0 / 130.0;
 xyScreenRatio = 10.0;
 sr_visualize_profiles(ax(1), Vn.wndm, Ve.wndm, T.wndm, H0.wind, [1 0 0], screenCoef, xyScreenRatio);
 sr_put_scale_vector(ax(1), screenCoef, xyScreenRatio,'task9Style');
@@ -73,7 +73,7 @@ axes(ax(1));
 colorbar;
 set(colorbar,'visible','off');
 
-sr_save_figure(fig,'task_9.jpeg');
+% sr_save_figure(fig,'task_9.jpeg');
 
 end
 
