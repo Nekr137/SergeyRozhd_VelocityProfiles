@@ -98,11 +98,12 @@ function buildContourPlot(ax, T, timeLim, V, H, levelStep, titl)
 
 [M,c] = contourf(ax,T,H,V);
 set(c,'ShowText','on');
-% c.LineWidth = 0.01;
+set(c, 'LineWidth', 1e-5);
 set(c,'EdgeColor',[0.5 0.5 0.5]);
 set(c,'LevelStep',levelStep);
 set(c,'TextStep',levelStep);
 clabel([],c,'Color','r','FontSize',7,'LabelSpacing',500,'EdgeColor','none');
+
 title(ax,titl,'FontSize',8,'FontWeight','normal');
 ylabel(ax,'Depth, m');
 xlabel(ax,'Velocity, mm/sec');
