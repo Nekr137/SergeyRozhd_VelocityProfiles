@@ -75,5 +75,6 @@ ylabel('Depth, m');
 colorbar;
 caxis([-200 200]);
 set(ax,'XLim', timeLim);
+set(ax, 'YDir', 'reverse');
 datetick('x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
 end
