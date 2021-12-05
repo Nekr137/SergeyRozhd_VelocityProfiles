@@ -68,21 +68,12 @@ ylabel(ax(1),'\tau, mm/sec','FontSize',11)
 set(ax(1),'YGrid','off');
 set(ax(1),'YTick',[])
 
-% Other subplots has colorbars so
-% to keep time axis equal we need to
-% adjust the position (width and height)
-% of the first axes.
-% Also, we need to update the position if
-% the figure has resized.
-function adjustWindAxisPos()
-    ax1pos = get(ax(1),'Position');
-    ax2pos = get(ax(2),'Position');
-    set(ax(1), 'Position', [ax1pos(1:2) ax2pos(3:4)])
-end
+axes(ax(1));
+colorbar;
+set(colorbar,'visible','off');
 
-adjustWindAxisPos();
+sr_save_figure(fig,'task_9_.tif');
 
-sr_save_figure(fig, 'task_9.tif');
 end
 
 
