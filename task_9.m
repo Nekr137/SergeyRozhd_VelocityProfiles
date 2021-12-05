@@ -104,7 +104,7 @@ set(c,'LevelStep',levelStep);
 set(c,'TextStep',levelStep);
 clabel([],c,'Color','r','FontSize',7,'LabelSpacing',500,'EdgeColor','none');
 
-title(ax,titl,'FontSize',8,'FontWeight','normal');
+title(ax,titl,'FontSize',8,'FontWeight','bold');
 ylabel(ax,'Depth, m');
 xlabel(ax,'Velocity, mm/sec');
 colorbar(ax);
