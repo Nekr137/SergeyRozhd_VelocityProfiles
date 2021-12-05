@@ -54,7 +54,7 @@ sr_visualize_profiles(ax, Vn.wndm, Ve.wndm, T.wndm, H0.wind, [1 0 0], screenCoef
 sr_put_scale_vector(ax, screenCoef, xyScreenRatio,'task9Style');
 datetick('x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
 xlabel('Velocity, mm/sec');
-
+set(ax,'YGrid','off');
 end
 
 function buildContourPlot(ax, T, timeLim, V, H, levelStep, titl)
