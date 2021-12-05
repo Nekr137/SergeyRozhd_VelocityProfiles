@@ -53,6 +53,7 @@ xyScreenRatio = 10.0;
 sr_visualize_profiles(ax, Vn.wndm, Ve.wndm, T.wndm, H0.wind, [1 0 0], screenCoef, xyScreenRatio);
 sr_put_scale_vector(ax, screenCoef, xyScreenRatio,'task9Style');
 datetick('x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
+xlabel('Velocity, mm/sec');
 
 end
 
@@ -72,6 +73,7 @@ set(c,'EdgeColor',[0.5 0.5 0.5]);
 set(c,'LevelStep',levelStep);
 title(titl,'FontSize',10,'FontWeight','normal');
 ylabel('Depth, m');
+xlabel('Velocity, mm/sec');
 colorbar;
 caxis([-200 200]);
 set(ax,'XLim', timeLim);
