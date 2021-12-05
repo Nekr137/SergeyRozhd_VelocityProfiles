@@ -65,7 +65,7 @@ sr_visualize_profiles(ax(1), Vn.wndm, Ve.wndm, T.wndm, H0.wind, [1 0 0], screenC
 sr_put_scale_vector(ax(1), screenCoef, xyScreenRatio,'task9Style');
 datetick(ax(1),'x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
 xlabel(ax(1),'Velocity, mm/s');
-ylabel(ax(1),'\tau, mm/s','FontSize',11)
+ylabel(ax(1),'\tau, N/m^2','FontSize',11)
 set(ax(1),'YGrid','off');
 set(ax(1),'YTick',[])
 
