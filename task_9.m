@@ -78,6 +78,8 @@ set(ax(1), 'Position', [ax1pos(1:2) ax2pos(3:4)])
 sr_save_figure(fig, 'task_9.tif');
 end
 
+
+
 function buildContourPlot(ax, T, timeLim, V, H, levelStep, titl)
 % @param [in] ax - axes
 % @param [in] T  - time vector
@@ -92,6 +94,8 @@ set(c,'ShowText','on');
 % c.LineWidth = 0.01;
 set(c,'EdgeColor',[0.5 0.5 0.5]);
 set(c,'LevelStep',levelStep);
+set(c,'TextStep',levelStep);
+clabel([],c,'Color','r','FontSize',7,'LabelSpacing',500,'EdgeColor','none');
 title(ax,titl,'FontSize',8,'FontWeight','normal');
 ylabel(ax,'Depth, m');
 xlabel(ax,'Velocity, mm/sec');
