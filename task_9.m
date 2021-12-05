@@ -11,10 +11,18 @@ timeLim = [
     min([T.ABS1(end) T.ABS2(end)])
 ];
 
-buildContourPlot(subplot(512), T.ABS1, timeLim, Vn.ABS1, H0.ABS1, step.ABS1, 'ABS1, U-component');
-buildContourPlot(subplot(513), T.ABS1, timeLim, Ve.ABS1, H0.ABS1, step.ABS1, 'ABS1, V-component');
-buildContourPlot(subplot(514), T.ABS2, timeLim, Vn.ABS2, H0.ABS2, step.ABS2, 'ABS2, U-component');
-buildContourPlot(subplot(515), T.ABS2, timeLim, Ve.ABS2, H0.ABS2, step.ABS2, 'ABS2, V-component');
+fig = figure;
+sz = get(0, 'ScreenSize'); % Getting your screen size
+set(fig, 'Position', [0 0 min(sz(3),sz(4))*0.9 min(sz(3),sz(4))*0.9]); % Setting the figure size
+ax(1) = subplot(511);
+ax(2) = subplot(512);
+ax(3) = subplot(513);
+ax(4) = subplot(514);
+ax(5) = subplot(515);
+buildContourPlot(ax(2), T.ABS1, timeLim, Vn.ABS1, H0.ABS1, step.ABS1, 'ABS1, U-component');
+buildContourPlot(ax(3), T.ABS1, timeLim, Ve.ABS1, H0.ABS1, step.ABS1, 'ABS1, V-component');
+buildContourPlot(ax(4), T.ABS2, timeLim, Vn.ABS2, H0.ABS2, step.ABS2, 'ABS2, U-component');
+buildContourPlot(ax(5), T.ABS2, timeLim, Ve.ABS2, H0.ABS2, step.ABS2, 'ABS2, V-component');
 
 colormap default
 
@@ -41,20 +49,33 @@ Vn.wndm = sr_find_average_data(Vn.windInterv, w);
 Ve.wndm = sr_find_average_data(Ve.windInterv, w); 
 T.wndm  = sr_find_average_data(T.windInterv, w); 
 
-ax = subplot(511);
+axes(ax(1));
 hold on; box on; grid on;
-set(ax,'YLim', [0 2.0]);
-set(ax,'XLim', timeLim);
-set(ax, 'YDir', 'reverse'); % Made y axis reversed
+set(ax(1),'YLim', [0 2.0]);
+set(ax(1),'XLim', timeLim);
+set(ax(1), 'YDir', 'reverse'); % Made y axis reversed
 
 % screenCoef = 1 / length(H0) / 10;
 screenCoef = 1.0 / 30.0;
 xyScreenRatio = 10.0;
-sr_visualize_profiles(ax, Vn.wndm, Ve.wndm, T.wndm, H0.wind, [1 0 0], screenCoef, xyScreenRatio);
-sr_put_scale_vector(ax, screenCoef, xyScreenRatio,'task9Style');
-datetick('x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
-xlabel('Velocity, mm/sec');
-set(ax,'YGrid','off');
+sr_visualize_profiles(ax(1), Vn.wndm, Ve.wndm, T.wndm, H0.wind, [1 0 0], screenCoef, xyScreenRatio);
+sr_put_scale_vector(ax(1), screenCoef, xyScreenRatio,'task9Style');
+datetick(ax(1),'x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
+xlabel(ax(1),'Velocity, mm/sec');
+set(ax(1),'YGrid','off');
+set(ax(1),'YTick',[])
+
+% Other subplots has colorbars so
+% to keep time axis equal we need to
+% adjust the position (width and height)
+% of the first axes.
+% Also, we need to update the position if
+% the figure has resized.
+ax1pos = get(ax(1),'Position');
+ax2pos = get(ax(2),'Position');
+set(ax(1), 'Position', [ax1pos(1:2) ax2pos(3:4)])
+
+sr_save_figure(fig, 'task_9.tif');
 end
 
 function buildContourPlot(ax, T, timeLim, V, H, levelStep, titl)
@@ -71,12 +92,12 @@ set(c,'ShowText','on');
 % c.LineWidth = 0.01;
 set(c,'EdgeColor',[0.5 0.5 0.5]);
 set(c,'LevelStep',levelStep);
-title(titl,'FontSize',10,'FontWeight','normal');
-ylabel('Depth, m');
-xlabel('Velocity, mm/sec');
-colorbar;
-caxis([-200 200]);
+title(ax,titl,'FontSize',8,'FontWeight','normal');
+ylabel(ax,'Depth, m');
+xlabel(ax,'Velocity, mm/sec');
+colorbar(ax);
+caxis(ax,[-200 200]);
 set(ax,'XLim', timeLim);
 set(ax, 'YDir', 'reverse');
-datetick('x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
+datetick(ax,'x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
 end

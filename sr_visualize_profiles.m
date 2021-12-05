@@ -19,8 +19,8 @@ for idxDepth = 1:length(H0) % depth cycle
         end
         xCoordinates = [t t+veScreen];
         yCoordinates = [h h-vnScreen]; % The '-' sign is here because of the reversed depth axis
-        plot(xCoordinates, yCoordinates, 'Color', color); % Show vector
-        plot(xCoordinates(1), yCoordinates(1), 'Color', color, 'Marker', '.');
+        plot(ax, xCoordinates, yCoordinates, 'Color', color); % Show vector
+        plot(ax, xCoordinates(1), yCoordinates(1), 'Color', color, 'Marker', '.');
     end
 end
 end
