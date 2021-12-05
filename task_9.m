@@ -64,8 +64,8 @@ xyScreenRatio = 10.0;
 sr_visualize_profiles(ax(1), Vn.wndm, Ve.wndm, T.wndm, H0.wind, [1 0 0], screenCoef, xyScreenRatio);
 sr_put_scale_vector(ax(1), screenCoef, xyScreenRatio,'task9Style');
 datetick(ax(1),'x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
-xlabel(ax(1),'Velocity, mm/sec');
-ylabel(ax(1),'\tau, mm/sec','FontSize',11)
+xlabel(ax(1),'Velocity, mm/s');
+ylabel(ax(1),'\tau, mm/s','FontSize',11)
 set(ax(1),'YGrid','off');
 set(ax(1),'YTick',[])
 
@@ -73,7 +73,7 @@ axes(ax(1));
 colorbar;
 set(colorbar,'visible','off');
 
-sr_save_figure(fig,'task_9_.tif');
+sr_save_figure(fig,'task_9.jpeg');
 
 end
 
@@ -88,19 +88,21 @@ function buildContourPlot(ax, T, timeLim, V, H, levelStep, titl)
 % @param [in] levelStep - how frequencly lines will appeared
 % @param [in] titl - title
 
-[M,c] = contourf(ax,T,H,V);
+conversionCoef = 1e-3; % from mm to meters
+
+[M,c] = contourf(ax,T,H,V .* conversionCoef);
 set(c,'ShowText','on');
 set(c, 'LineWidth', 1e-5);
 set(c,'EdgeColor',[0.5 0.5 0.5]);
-set(c,'LevelStep',levelStep);
-set(c,'TextStep',levelStep/2);
+set(c,'LevelStep',levelStep * conversionCoef);
+set(c,'TextStep',levelStep/2 * conversionCoef);
 clabel([],c,'Color','k','FontSize',6,'LabelSpacing',2000,'EdgeColor','none');
 
 title(ax,titl,'FontSize',8,'FontWeight','bold');
 ylabel(ax,'Depth, m');
-xlabel(ax,'Velocity, mm/sec');
+xlabel(ax,'Velocity, m/s');
 colorbar(ax);
-caxis(ax,[-200 200]);
+caxis(ax,[-200.0 200.0] .* conversionCoef);
 set(ax,'XLim', timeLim);
 set(ax,'YDir', 'reverse');
 set(ax,'YGrid','on');
