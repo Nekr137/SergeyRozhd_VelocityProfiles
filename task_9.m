@@ -92,8 +92,8 @@ set(c,'ShowText','on');
 set(c, 'LineWidth', 1e-5);
 set(c,'EdgeColor',[0.5 0.5 0.5]);
 set(c,'LevelStep',levelStep);
-set(c,'TextStep',levelStep);
-clabel([],c,'Color','r','FontSize',7,'LabelSpacing',500,'EdgeColor','none');
+set(c,'TextStep',levelStep/2);
+clabel([],c,'Color','k','FontSize',6,'LabelSpacing',2000,'EdgeColor','none');
 
 title(ax,titl,'FontSize',8,'FontWeight','bold');
 ylabel(ax,'Depth, m');
@@ -101,6 +101,7 @@ xlabel(ax,'Velocity, mm/sec');
 colorbar(ax);
 caxis(ax,[-200 200]);
 set(ax,'XLim', timeLim);
-set(ax, 'YDir', 'reverse');
+set(ax,'YDir', 'reverse');
+set(ax,'YGrid','on');
 datetick(ax,'x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
 end
