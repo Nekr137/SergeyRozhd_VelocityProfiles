@@ -3,8 +3,8 @@ function task_9
 [Vn.ABS1, Ve.ABS1, T.ABS1, H0.ABS1] = sr_load_abs_data('ABS1_adcp300_dir.txt', 'ABS1_adcp300_mag.txt');
 [Vn.ABS2, Ve.ABS2, T.ABS2, H0.ABS2] = sr_load_abs_data('ABS2_dvs1_dir3.txt', 'ABS2_dvs1_mag3.txt');
 
-step.ABS1 = 80.0;
-step.ABS2 = 20.0;
+step.ABS1 = 120.0;
+step.ABS2 = 40.0;
 
 timeLim = [
     max([T.ABS1(1) T.ABS2(1)])
@@ -15,6 +15,7 @@ fig = figure;
 % sz = get(0, 'ScreenSize'); % Getting your screen size
 % set(fig, 'Position', [0 0 min(sz(3),sz(4))*0.9 min(sz(3),sz(4))*0.9]); % Setting the figure size
 set(gcf,'Position', [1367 -271 1920 963]);
+% set(gcf,'Position',[1 41 1366 651]);
 
 ax(1) = subplot(511);
 ax(2) = subplot(512);
