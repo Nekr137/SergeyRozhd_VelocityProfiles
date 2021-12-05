@@ -12,8 +12,10 @@ timeLim = [
 ];
 
 fig = figure;
-sz = get(0, 'ScreenSize'); % Getting your screen size
-set(fig, 'Position', [0 0 min(sz(3),sz(4))*0.9 min(sz(3),sz(4))*0.9]); % Setting the figure size
+% sz = get(0, 'ScreenSize'); % Getting your screen size
+% set(fig, 'Position', [0 0 min(sz(3),sz(4))*0.9 min(sz(3),sz(4))*0.9]); % Setting the figure size
+set(gcf,'Position', [1367 -271 1920 963]);
+
 ax(1) = subplot(511);
 ax(2) = subplot(512);
 ax(3) = subplot(513);
@@ -62,6 +64,7 @@ sr_visualize_profiles(ax(1), Vn.wndm, Ve.wndm, T.wndm, H0.wind, [1 0 0], screenC
 sr_put_scale_vector(ax(1), screenCoef, xyScreenRatio,'task9Style');
 datetick(ax(1),'x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
 xlabel(ax(1),'Velocity, mm/sec');
+ylabel(ax(1),'\tau, mm/sec','FontSize',11)
 set(ax(1),'YGrid','off');
 set(ax(1),'YTick',[])
 
@@ -71,9 +74,13 @@ set(ax(1),'YTick',[])
 % of the first axes.
 % Also, we need to update the position if
 % the figure has resized.
-ax1pos = get(ax(1),'Position');
-ax2pos = get(ax(2),'Position');
-set(ax(1), 'Position', [ax1pos(1:2) ax2pos(3:4)])
+function adjustWindAxisPos()
+    ax1pos = get(ax(1),'Position');
+    ax2pos = get(ax(2),'Position');
+    set(ax(1), 'Position', [ax1pos(1:2) ax2pos(3:4)])
+end
+
+adjustWindAxisPos();
 
 sr_save_figure(fig, 'task_9.tif');
 end
