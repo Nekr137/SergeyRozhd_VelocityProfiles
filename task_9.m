@@ -14,7 +14,7 @@ timeLim = [
 fig = figure;
 % sz = get(0, 'ScreenSize'); % Getting your screen size
 % set(fig, 'Position', [0 0 min(sz(3),sz(4))*0.9 min(sz(3),sz(4))*0.9]); % Setting the figure size
-% set(gcf,'Position', [1367 -271 1920 963]);
+set(gcf,'Position', [1367 -271 1920 963]);
 % set(gcf,'Position',[1 41 1366 651]);
 
 ax(1) = subplot(511);
@@ -107,28 +107,56 @@ function buildContourPlot(ax, T, timeLim, V, H, levelStep, titl)
 % @param [in] levelStep - how frequencly lines will appeared
 % @param [in] titl - title
 
-conversionCoef = 1e-3; % from mm to meters
+% from mm to meters
+mm2m = 1e-3;
 
+% Smoothing the data
+[intrp.T,intrp.H,intrp.V] = interp3D(T,H,V,20);
+
+% Plot smoothing data
+pcolor(ax, intrp.T, intrp.H, intrp.V * mm2m);
+shading(ax,'interp');
 setRedBlueSmoothedColormap(ax);
+
+hold(ax,'on');
+box(ax,'on');
+
+% Plot contour
+[M,c]=contourf(ax,T,H,V * mm2m);
+set(c,'Fill','off');
 set(c,'ShowText','on');
 set(c, 'LineWidth', 1e-5);
 set(c,'EdgeColor',[0.5 0.5 0.5]);
-set(c,'LevelStep',levelStep * conversionCoef);
-set(c,'TextStep',levelStep/2 * conversionCoef);
-clabel([],c,'Color','k','FontSize',6,'LabelSpacing',2000,'EdgeColor','none');
+set(c,'LevelStep',levelStep * mm2m);
+set(c,'TextStep',levelStep/2 * mm2m);
+clabel([],c,'Color','k','FontSize',7,'LabelSpacing',2000,'EdgeColor','none');
 
+lims = get(ax,'YLim');
 title(ax,titl,'FontSize',8,'FontWeight','bold');
 ylabel(ax,'Depth, m');
 xlabel(ax,'Velocity, m/s');
-colorbar(ax);
-caxis(ax,[-200.0 200.0] .* conversionCoef);
 set(ax,'XLim', timeLim);
 set(ax,'YDir', 'reverse');
 set(ax,'YGrid','on');
-yl = get(ax,'YLim');
-set(ax,'YTick',[yl(1):0.5:yl(2)]);
+set(ax,'YTick',lims(1):0.5:lims(2));
+set(ax,'Layer','top'); % put ticks on top of the `pcolor`
 datetick(ax,'x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
 set(ax,'FontSize',9);
+
+caxLimit = 400 * mm2m;
+caxis(ax, [-caxLimit caxLimit]);
+colorbar(ax,'Ticks',linspace(-caxLimit,caxLimit,9));
+end
+
+function [xx,yy,mm] = interp3D(x,y,m,coef)
+xPnts = length(x) * coef;
+yPnts = length(y) * coef;
+pp1 = linspace(min(min(x,[],2)),max(max(x,[],2)),xPnts);
+pp2 = linspace(min(min(y,[],1)),max(max(y,[],1)),yPnts);
+[xx,yy] = meshgrid(pp1,pp2);
+mm = interp2(x,y,m,xx,yy,'cubic');
+end
+
 function setRedBlueSmoothedColormap(ax)
 cm = redbluecmap; 
 N = 100;
