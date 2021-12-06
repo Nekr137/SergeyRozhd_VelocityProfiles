@@ -22,6 +22,25 @@ ax(2) = subplot(512);
 ax(3) = subplot(513);
 ax(4) = subplot(514);
 ax(5) = subplot(515);
+
+% Used the getHeight(), setHeight() and moveVertically() to adjust the position
+gap = 0.06;
+p5 = 0.05;
+h45 = 0.095;
+h23 = h45 * 2.0;
+h01 = h45;
+p4 = p5+h45+gap;
+p3 = p4+h45+gap;
+p2 = p3+h23+gap;
+p1 = p2+h23+gap;
+
+
+set(ax(1),'Position',[0.1300    p1    0.7444    h01]);
+set(ax(2),'Position',[0.1300    p2    0.7444    h23]);
+set(ax(3),'Position',[0.1300    p3    0.7444    h23]);
+set(ax(4),'Position',[0.1300    p4    0.7444    h45]);
+set(ax(5),'Position',[0.1300    p5    0.7444    h45]);
+
 buildContourPlot(ax(2), T.ABS1, timeLim, Vn.ABS1, H0.ABS1, step.ABS1, 'ABS1, U-component');
 buildContourPlot(ax(3), T.ABS1, timeLim, Ve.ABS1, H0.ABS1, step.ABS1, 'ABS1, V-component');
 buildContourPlot(ax(4), T.ABS2, timeLim, Vn.ABS2, H0.ABS2, step.ABS2, 'ABS2, U-component');
@@ -60,7 +79,9 @@ set(ax(1), 'YDir', 'reverse'); % Made y axis reversed
 
 % screenCoef = 1 / length(H0) / 10;
 screenCoef = 1.0 / 130.0;
-xyScreenRatio = 10.0;
+pp1 = get(ax(1),'Position');
+pp2 = get(fig,'Position');
+xyScreenRatio = pp1(3) / pp1(4) * pp2(3) / pp2(4);
 sr_visualize_profiles(ax(1), Vn.wndm, Ve.wndm, T.wndm, H0.wind, [1 0 0], screenCoef, xyScreenRatio);
 sr_put_scale_vector(ax(1), screenCoef, xyScreenRatio,'task9Style');
 datetick(ax(1),'x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
@@ -106,5 +127,25 @@ caxis(ax,[-200.0 200.0] .* conversionCoef);
 set(ax,'XLim', timeLim);
 set(ax,'YDir', 'reverse');
 set(ax,'YGrid','on');
+yl = get(ax,'YLim');
+set(ax,'YTick',[yl(1):0.5:yl(2)]);
 datetick(ax,'x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
+set(ax,'FontSize',9);
+end
+
+function setHeight(ax,height)
+    pos = get(ax,'Position');
+    pos(4) = height;
+    set(ax,'Position',pos);
+end
+
+function height = getHeight(ax)
+    pos = get(ax,'Position');
+    height = pos(4);
+end
+
+function moveVertically(ax, dist)
+    pos = get(ax,'Position');
+    pos(2) = pos(2) + dist;
+    set(ax,'Position',pos);
 end
