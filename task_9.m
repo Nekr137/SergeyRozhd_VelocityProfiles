@@ -7,14 +7,14 @@ step.ABS1 = 120.0;
 step.ABS2 = 40.0;
 
 timeLim = [
-    max([T.ABS1(1) T.ABS2(1)])
-    min([T.ABS1(end) T.ABS2(end)])
+    min([T.ABS1(1) T.ABS2(1)])
+    max([T.ABS1(end) T.ABS2(end)])
 ];
 
 fig = figure;
 % sz = get(0, 'ScreenSize'); % Getting your screen size
 % set(fig, 'Position', [0 0 min(sz(3),sz(4))*0.9 min(sz(3),sz(4))*0.9]); % Setting the figure size
-set(gcf,'Position', [1367 -271 1920 963]);
+% set(gcf,'Position', [1367 -271 1920 963]);
 % set(gcf,'Position',[1 41 1366 651]);
 
 ax(1) = subplot(511);
