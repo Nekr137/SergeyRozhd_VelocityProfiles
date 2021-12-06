@@ -46,8 +46,6 @@ buildContourPlot(ax(3), T.ABS1, timeLim, Ve.ABS1, H0.ABS1, step.ABS1, 'ABS1, V-c
 buildContourPlot(ax(4), T.ABS2, timeLim, Vn.ABS2, H0.ABS2, step.ABS2, 'ABS2, U-component');
 buildContourPlot(ax(5), T.ABS2, timeLim, Ve.ABS2, H0.ABS2, step.ABS2, 'ABS2, V-component');
 
-colormap redbluecmap
-
 %% Time interval
 
 % Loading the data
@@ -111,7 +109,7 @@ function buildContourPlot(ax, T, timeLim, V, H, levelStep, titl)
 
 conversionCoef = 1e-3; % from mm to meters
 
-[M,c] = contourf(ax,T,H,V .* conversionCoef);
+setRedBlueSmoothedColormap(ax);
 set(c,'ShowText','on');
 set(c, 'LineWidth', 1e-5);
 set(c,'EdgeColor',[0.5 0.5 0.5]);
@@ -131,6 +129,20 @@ yl = get(ax,'YLim');
 set(ax,'YTick',[yl(1):0.5:yl(2)]);
 datetick(ax,'x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
 set(ax,'FontSize',9);
+function setRedBlueSmoothedColormap(ax)
+cm = redbluecmap; 
+N = 100;
+colormap(ax,[
+    interpArray(cm(:,1),N);
+    interpArray(cm(:,2),N);
+    interpArray(cm(:,3),N)
+]');
+end
+
+function yy = interpArray(array, N)
+defN = length(array);
+xx = linspace(1,defN,N);
+yy = interp1(1:defN,array,xx);
 end
 
 function setHeight(ax,height)
