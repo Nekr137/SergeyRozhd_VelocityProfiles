@@ -127,14 +127,32 @@ hold(ax,'on');
 box(ax,'on');
 
 % Plot contour
-[M,c]=contourf(ax,T,H,V * mm2m);
-set(c,'Fill','off');
-set(c,'ShowText','on');
+[M,c]=contourf(ax,T,H,V * mm2m,'Fill','off');
+set(c,'ShowText','off');
 set(c, 'LineWidth', 1e-5);
 set(c,'EdgeColor',[0.5 0.5 0.5]);
-set(c,'LevelStep',levelStep * mm2m);
-set(c,'TextStep',levelStep/2 * mm2m);
-clabel([],c,'Color','k','FontSize',7,'LabelSpacing',2000,'EdgeColor','none');
+set(c,'LevelStep',levelStep * 10 * mm2m);
+set(c,'TextStep',levelStep/1000 * mm2m);
+% clabel(M,c,'Color','k','FontSize',6,'LabelSpacing',1000,'EdgeColor','none');
+% val = linspace(-caxLimit,caxLimit,5000);
+% clabel(M,c,val,'FontSize',6);
+% t = clabel(M,c,'manual','FontSize',6);
+
+Co = interpretContour(M);
+% for k = 1:length(Co)
+%     level = Co(k).level;
+%     color = getColorOfColormap(ax, level);
+%     plot(ax,Co(k).pnts(1,:),Co(k).pnts(2,:),'LineWidth',1e-5,'Color',color);
+% end
+for k = 1:length(Co)
+    level = Co(k).level;
+    x = Co(k).pnts(1,:);
+    y = Co(k).pnts(2,:);
+    ctrx = sum(x) / length(x);
+    ctry = sum(y) / length(y);
+    level = round(level*100.0) / 100.0;
+    text(ax,ctrx,ctry,num2str(level),'FontSize',6);
+end
 
 lims = get(ax,'YLim');
 title(ax,titl,'FontSize',8,'FontWeight','bold');
@@ -147,6 +165,7 @@ set(ax,'YTick',lims(1):0.5:lims(2));
 set(ax,'Layer','top'); % put ticks on top of the `pcolor`
 datetick(ax,'x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
 set(ax,'FontSize',9);
+end
 
 function Data = interpretContour(M)
 idx = 1;
