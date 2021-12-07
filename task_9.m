@@ -150,6 +150,7 @@ set(ax,'YTick',lims(1):0.5:lims(2));
 set(ax,'Layer','top'); % put ticks on top of the `pcolor`
 datetick(ax,'x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
 set(ax,'FontSize',9);
+axes(ax);
 end
 
 function putLabels(ax,M,c)
