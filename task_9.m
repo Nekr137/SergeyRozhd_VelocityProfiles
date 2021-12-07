@@ -8,12 +8,16 @@ abs2Interval = [datenum('2021-08-10, 04:00', 'yyyy-mm-dd, HH:MM') T.ABS2(end)];
 
 Vn.ABS2 = Vn.ABS2 * 3.0;
 Ve.ABS2 = Ve.ABS2 * 3.0;
+
+% Wind
+[Vn.wind, Ve.wind, T.wind, ~] = sr_load_task8('task_8_veter(copy).dat');
+
 step.ABS1 = 120.0;
 step.ABS2 = 40.0;
 
 timeLim = [
-    min([T.ABS1(1) T.ABS2(1)])
-    max([T.ABS1(end) T.ABS2(end)])
+    min([T.ABS1(1) T.ABS2(1) T.wind(1)])
+    max([T.ABS1(end) T.ABS2(end) T.wind(end)])
 ];
 
 fig = figure;
@@ -46,15 +50,15 @@ set(ax(3),'Position',[0.1300    p3    0.7444    h23]);
 set(ax(4),'Position',[0.1300    p4    0.7444    h45]);
 set(ax(5),'Position',[0.1300    p5    0.7444    h45]);
 
-buildContourPlot(ax(2), T.ABS1, timeLim, Vn.ABS1, H0.ABS1, step.ABS1, 'ABS1, U-component');
-buildContourPlot(ax(3), T.ABS1, timeLim, Ve.ABS1, H0.ABS1, step.ABS1, 'ABS1, V-component');
-buildContourPlot(ax(4), T.ABS2, timeLim, Vn.ABS2, H0.ABS2, step.ABS2, 'ABS2, U-component');
-buildContourPlot(ax(5), T.ABS2, timeLim, Ve.ABS2, H0.ABS2, step.ABS2, 'ABS2, V-component');
+abs1barLim = 400;
+abs2barLim = 400;
+buildContourPlot(ax(2), T.ABS1, timeLim, Vn.ABS1, H0.ABS1, step.ABS1, 'ABS1, U-component',20,abs1barLim);
+buildContourPlot(ax(4), T.ABS2, timeLim, Vn.ABS2, H0.ABS2, step.ABS2, 'ABS2, U-component',5,abs2barLim);
+buildContourPlot(ax(3), T.ABS1, timeLim, Ve.ABS1, H0.ABS1, step.ABS1, 'ABS1, V-component',20,abs1barLim);
+buildContourPlot(ax(5), T.ABS2, timeLim, Ve.ABS2, H0.ABS2, step.ABS2, 'ABS2, V-component',5,abs2barLim);
+
 
 %% Time interval
-
-% Loading the data
-[Vn.wind, Ve.wind, T.wind, ~] = sr_load_task8('task_8_veter(copy).dat');
 
 % Removing broken data - when time is zero
 remIndices = find(T.wind < 1);
@@ -104,7 +108,7 @@ end
 
 
 
-function buildContourPlot(ax, T, timeLim, V, H, levelStep, titl)
+function buildContourPlot(ax, T, timeLim, V, H, levelStep, titl,isoCount,caxLimit)
 % @param [in] ax - axes
 % @param [in] T  - time vector
 % @param [in] timeLim - [tLim0 tLim1]
@@ -117,7 +121,7 @@ function buildContourPlot(ax, T, timeLim, V, H, levelStep, titl)
 mm2m = 1e-3;
 
 % The limit of caxis
-caxLimit = 400 * mm2m;
+caxLimit = caxLimit * mm2m;
 
 % Smoothing the data
 [intrp.T,intrp.H,intrp.V] = interp3D(T,H,V,20);
@@ -133,7 +137,7 @@ hold(ax,'on');
 box(ax,'on');
 
 % Plot contour
-[M,c]=contourf(ax,T,H,V * mm2m, 30, 'Fill','off');
+[M,c]=contourf(ax,T,H,V * mm2m, isoCount, 'Fill','off');
 set(c,'ShowText','off');
 set(c, 'LineWidth', 1e-5);
 set(c,'EdgeColor',[0.8 0.8 0.8]);
