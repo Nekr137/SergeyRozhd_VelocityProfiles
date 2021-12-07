@@ -137,7 +137,7 @@ set(c,'TextStep',levelStep * mm2m);
 % clabel(M,c,val,'FontSize',6);
 % t = clabel(M,c,'manual','FontSize',6);
 
-putLabels(ax,M,c);
+% putLabels(ax,M,c);
 
 lims = get(ax,'YLim');
 title(ax,titl,'FontSize',8,'FontWeight','bold');
