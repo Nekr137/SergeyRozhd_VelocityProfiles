@@ -110,6 +110,9 @@ function buildContourPlot(ax, T, timeLim, V, H, levelStep, titl)
 % from mm to meters
 mm2m = 1e-3;
 
+% The limit of caxis
+caxLimit = 400 * mm2m;
+
 % Smoothing the data
 [intrp.T,intrp.H,intrp.V] = interp3D(T,H,V,20);
 
@@ -118,6 +121,8 @@ pcolor(ax, intrp.T, intrp.H, intrp.V * mm2m);
 shading(ax,'interp');
 setRedBlueSmoothedColormap(ax);
 
+caxis(ax, [-caxLimit caxLimit]);
+colorbar(ax,'Ticks',linspace(-caxLimit,caxLimit,9));
 hold(ax,'on');
 box(ax,'on');
 
@@ -161,7 +166,7 @@ yPnts = length(y) * coef;
 pp1 = linspace(min(min(x,[],2)),max(max(x,[],2)),xPnts);
 pp2 = linspace(min(min(y,[],1)),max(max(y,[],1)),yPnts);
 [xx,yy] = meshgrid(pp1,pp2);
-mm = interp2(x,y,m,xx,yy,'cubic');
+mm = interp2(x,y,m,xx,yy,'spline');
 end
 
 function setRedBlueSmoothedColormap(ax)
