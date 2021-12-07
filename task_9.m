@@ -129,7 +129,7 @@ box(ax,'on');
 [M,c]=contourf(ax,T,H,V * mm2m, 30, 'Fill','off');
 set(c,'ShowText','off');
 set(c, 'LineWidth', 1e-5);
-set(c,'EdgeColor','none');
+set(c,'EdgeColor',[0.8 0.8 0.8]);
 set(c,'LevelStep',levelStep * mm2m);
 set(c,'TextStep',levelStep * mm2m);
 % clabel(M,c,'Color','k','FontSize',6,'LabelSpacing',1000,'EdgeColor','none');
