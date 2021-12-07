@@ -143,9 +143,16 @@ set(ax,'Layer','top'); % put ticks on top of the `pcolor`
 datetick(ax,'x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
 set(ax,'FontSize',9);
 
-caxLimit = 400 * mm2m;
-caxis(ax, [-caxLimit caxLimit]);
-colorbar(ax,'Ticks',linspace(-caxLimit,caxLimit,9));
+function Data = interpretContour(M)
+idx = 1;
+Data = [];
+while idx < length(M)
+    data.level = M(1,idx);
+    data.cnt = M(2,idx);
+    data.pnts = M(:,idx+1:idx+data.cnt);
+    Data = [Data data];
+    idx = idx + data.cnt + 1;
+end
 end
 
 function [xx,yy,mm] = interp3D(x,y,m,coef)
