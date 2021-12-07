@@ -6,6 +6,8 @@ function task_9
 abs2Interval = [datenum('2021-08-10, 04:00', 'yyyy-mm-dd, HH:MM') T.ABS2(end)];
 [Vn.ABS2, Ve.ABS2, T.ABS2] = sr_extract_time_interval(Vn.ABS2, Ve.ABS2, T.ABS2, abs2Interval);
 
+Vn.ABS2 = Vn.ABS2 * 3.0;
+Ve.ABS2 = Ve.ABS2 * 3.0;
 step.ABS1 = 120.0;
 step.ABS2 = 40.0;
 
