@@ -169,8 +169,8 @@ for k = 1:length(Co)
     y = Co(k).pnts(2,:);
     ctrx = sum(x) / length(x);
     ctry = sum(y) / length(y);
-    level = round(level*1000.0) / 1000.0;
-    if level == 0
+    roundedLevel = round(level*1000.0) / 1000.0;
+    if roundedLevel == 0
         continue;
     end
     if abs(ctry - ydata(1)) < 0.05 * (ydata(end) - ydata(1))
@@ -185,12 +185,44 @@ for k = 1:length(Co)
     if abs(ctry - xdata(end)) < 0.05 * (xdata(end) - xdata(1))
         continue;
     end
-    t.handle = text(ax,ctrx,ctry,num2str(level),'FontSize',6);
+    str = num2str(roundedLevel);
+    t.handle = text(ax,ctrx,ctry,str,'FontSize',6);
     extent = get(t.handle,'Extent');
     pos = get(t.handle,'Position');
     t.position = [pos(1) pos(2) extent(3) extent(4)];
+    t.level = level;
     aTexts = [aTexts t];
 end
+
+k1 = 1;
+n = length(aTexts);
+while k1 < n
+    inters = logical(zeros(1,n-k1));
+    for k2 = k1+1:n
+       inters(k2) = isTextsInters(aTexts(k2),aTexts(k1)); 
+    end
+    toRemove = aTexts(inters);
+    for k3 = 1:length(toRemove)
+        set(toRemove(k3).handle,'Color','b','EdgeColor','r');
+        delete(toRemove(k3).handle);
+    end
+    aTexts(inters) = [];
+    n = n - length(toRemove);
+    k1 = k1 + 1;
+end
+
+end
+
+function res = isTextsInters(t1,t2)
+r1.left = t1.position(1);
+r2.left = t2.position(1);
+r1.right = t1.position(1) + t1.position(3);
+r2.right = t2.position(1) + t2.position(3);
+r1.bottom = t1.position(2);
+r2.bottom = t2.position(2);
+r1.top = t1.position(2) + t1.position(4);
+r2.top = t2.position(2) + t2.position(4);
+res = ~(r2.left > r1.right || r2.right < r1.left || r2.top < r1.bottom || r2.bottom > r1.top);
 end
 
 function Data = interpretContour(M)
