@@ -69,6 +69,8 @@ Vn.wndm = sr_find_average_data(Vn.windInterv, w);
 Ve.wndm = sr_find_average_data(Ve.windInterv, w); 
 T.wndm  = sr_find_average_data(T.windInterv, w); 
 
+% dlmwrite("wind_smoothed_data_output.dat",[T.wndm; Vn.wndm; Ve.wndm],'delimiter','\t');
+
 axes(ax(1));
 hold on; box on; grid on;
 set(ax(1),'YLim', [0 2.0]);
