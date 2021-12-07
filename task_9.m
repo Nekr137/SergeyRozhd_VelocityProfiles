@@ -167,6 +167,24 @@ colormap(ax,[
 ]');
 end
 
+function rgb = getColorOfColormap(ax,value)
+    cl = get(ax,'CLim');
+    cm = get(ax,'Colormap');
+    n = length(cm);
+    if value <= cl(1)
+        rgb = cm(1,:);
+        return
+    end
+    if value >= cl(2)
+        rgb = cm(end,:);
+        return;
+    end
+    v = linspace(cl(1),cl(2),n);
+    ind = find(v > value);
+    
+    rgb = cm(ind(1),:);
+end
+
 function yy = interpArray(array, N)
 defN = length(array);
 xx = linspace(1,defN,N);
