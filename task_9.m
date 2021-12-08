@@ -37,7 +37,8 @@ timeLim = [
 fig = figure;
 % sz = get(0, 'ScreenSize'); % Getting your screen size
 % set(fig, 'Position', [0 0 min(sz(3),sz(4))*0.9 min(sz(3),sz(4))*0.9]); % Setting the figure size
-set(gcf,'Position', [1367 -271 1920 963]);
+% set(gcf,'Position', [1367 -271 1920 963]);
+set(gcf,'Position', [1367 -271 1920 1.5 * 963]);
 % set(gcf,'Position',[1 41 1366 651]);
 
 ax(1) = subplot(511);
@@ -50,7 +51,7 @@ ax(5) = subplot(515);
 gap = 0.06;
 p5 = 0.05;
 h45 = 0.095;
-h23 = h45 * 2.0;
+h23 = h45 * 1.0;
 h01 = h45;
 p4 = p5+h45+gap;
 p3 = p4+h45+gap;
