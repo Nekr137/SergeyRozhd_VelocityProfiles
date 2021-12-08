@@ -4,6 +4,7 @@ ABS1_START_DEPTH = 0.5;
 ABS2_START_DEPTH = 1.5;
 ABS1_DEPTH_STEP = 0.5;
 ABS2_DEPTH_STEP = 1.0;
+fontSize = 8;
 
 [Vn.ABS1, Ve.ABS1, T.ABS1, H0.ABS1] = sr_load_abs_data('ABS1_adcp300_dir.txt', 'ABS1_adcp300_mag.txt',ABS1_START_DEPTH,ABS1_DEPTH_STEP);
 [Vn.ABS2, Ve.ABS2, T.ABS2, H0.ABS2] = sr_load_abs_data('ABS2_dvs1_dir3.txt', 'ABS2_dvs1_mag3.txt',ABS2_START_DEPTH,ABS2_DEPTH_STEP);
@@ -35,42 +36,36 @@ timeLim = [
 ];
 
 fig = figure;
+
 % sz = get(0, 'ScreenSize'); % Getting your screen size
 % set(fig, 'Position', [0 0 min(sz(3),sz(4))*0.9 min(sz(3),sz(4))*0.9]); % Setting the figure size
 % set(gcf,'Position', [1367 -271 1920 963]);
-set(gcf,'Position', [1367 -271 1920 1.5 * 963]);
+% set(gcf,'Position', [1367 -271 1920 2.0 * 963]);
 % set(gcf,'Position',[1 41 1366 651]);
+% set(fig,'PaperType','A4'); 
+% set(fig,'PaperSize',[ 8.2677 11.6929]);
+% set(fig,'PaperType','A4');
+
+% set(fig, 'PaperUnits', 'centimeters');
+set(fig, 'Position', [0 0 210 297]);
+% set(fig,'Position',[0 0 2 * 210 2 * 297]);
 
 ax(1) = subplot(511);
 ax(2) = subplot(512);
 ax(3) = subplot(513);
 ax(4) = subplot(514);
 ax(5) = subplot(515);
+set(ax,'FontSize',fontSize);
+
+adjustAxesPos(ax);
 
 % Used the getHeight(), setHeight() and moveVertically() to adjust the position
-gap = 0.06;
-p5 = 0.05;
-h45 = 0.095;
-h23 = h45 * 1.0;
-h01 = h45;
-p4 = p5+h45+gap;
-p3 = p4+h45+gap;
-p2 = p3+h23+gap;
-p1 = p2+h23+gap;
-
-
-set(ax(1),'Position',[0.1300    p1    0.7444    h01]);
-set(ax(2),'Position',[0.1300    p2    0.7444    h23]);
-set(ax(3),'Position',[0.1300    p3    0.7444    h23]);
-set(ax(4),'Position',[0.1300    p4    0.7444    h45]);
-set(ax(5),'Position',[0.1300    p5    0.7444    h45]);
-
 abs1barLim = 300;
 abs2barLim = 800;
-buildContourPlot(ax(2), T.ABS1, timeLim, Vn.ABS1, H0.ABS1, step.ABS1, 'ABS1, U-component',20,abs1barLim);
-buildContourPlot(ax(4), T.ABS2, timeLim, Vn.ABS2, H0.ABS2, step.ABS2, 'ABS2, U-component',5,abs2barLim);
-buildContourPlot(ax(3), T.ABS1, timeLim, Ve.ABS1, H0.ABS1, step.ABS1, 'ABS1, V-component',20,abs1barLim);
-buildContourPlot(ax(5), T.ABS2, timeLim, Ve.ABS2, H0.ABS2, step.ABS2, 'ABS2, V-component',5,abs2barLim);
+buildContourPlot(ax(2), T.ABS1, timeLim, Vn.ABS1, H0.ABS1, step.ABS1, 'ABS1, U-component',20,abs1barLim,fontSize);
+buildContourPlot(ax(4), T.ABS2, timeLim, Vn.ABS2, H0.ABS2, step.ABS2, 'ABS2, U-component',5,abs2barLim,fontSize);
+buildContourPlot(ax(3), T.ABS1, timeLim, Ve.ABS1, H0.ABS1, step.ABS1, 'ABS1, V-component',20,abs1barLim,fontSize);
+buildContourPlot(ax(5), T.ABS2, timeLim, Ve.ABS2, H0.ABS2, step.ABS2, 'ABS2, V-component',5,abs2barLim,fontSize);
 
 
 %% Time interval
@@ -88,7 +83,7 @@ H0.wind = [1];
 [Vn.windInterv, Ve.windInterv, T.windInterv] = sr_extract_time_interval(Vn.wind, Ve.wind, T.wind, timeLim);
 
 % Find mean values
-w = 60 * 40;
+w = 60 * 100;
 Vn.wndm = sr_find_average_data(Vn.windInterv, w); 
 Ve.wndm = sr_find_average_data(Ve.windInterv, w); 
 T.wndm  = sr_find_average_data(T.windInterv, w); 
@@ -102,29 +97,79 @@ set(ax(1),'XLim', timeLim);
 set(ax(1), 'YDir', 'reverse'); % Made y axis reversed
 
 % screenCoef = 1 / length(H0) / 10;
-screenCoef = 1.0 / 130.0;
+screenCoef = 1.0 / 50.0;
 pp1 = get(ax(1),'Position');
 pp2 = get(fig,'Position');
 xyScreenRatio = pp1(3) / pp1(4) * pp2(3) / pp2(4);
-sr_visualize_profiles(ax(1), Vn.wndm, Ve.wndm, T.wndm, H0.wind, [1 0 0], screenCoef, xyScreenRatio);
-sr_put_scale_vector(ax(1), screenCoef, xyScreenRatio,'task9Style','1 N/m^2',3.0, -0.1);
+sr_visualize_profiles(ax(1), Vn.wndm, Ve.wndm, T.wndm, H0.wind, [1 0 0], screenCoef, xyScreenRatio,'none');
+sr_put_scale_vector(ax(1), screenCoef, xyScreenRatio,'task9Style','1 N/m^2',3.0, [0.1 0.0],7);
 datetick(ax(1),'x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
-xlabel(ax(1),'\tau, N/m^2','FontSize',11);
+xlabel(ax(1),'\tau, N/m^2','FontSize',fontSize);
 set(ax(1),'YGrid','off');
 set(ax(1),'YTick',[]);
+set(ax(1),'FontSize',fontSize);
 
 axes(ax(1));
 colorbar;
 set(colorbar,'visible','off');
 
-fname = ['task_9_output_' datestr(now,'yyyy-dd-mm-HH-MM-SS') '_' isSmoothed '.jpeg'];
-sr_save_figure(fig,fname);
+set(fig,'Position',[0 0 2 * 210 2 * 297]);
 
+% sr_save_figure(fig, isSmoothed);
+save_figure(fig,isSmoothed);
+
+% [Vn.ABS2RCM, Ve.ABS2RCM, T.ABS2RCM, H0.ABS2RCM] = sr_load_ABS2_RCM_data('ABS2_RCM_184_20210809_1333.txt');
+% cm2m = 1e-2;
+% Ve.ABS2RCM = cm2m * Ve.ABS2RCM;
+% Vn.ABS2RCM = cm2m * Vn.ABS2RCM;
+% screenCoef = 1.0 / 130.0;
+% pp1 = get(ax(6),'Position');
+% pp2 = get(fig,'Position');
+% xyScreenRatio = pp1(3) / pp1(4) * pp2(3) / pp2(4);
+% sr_visualize_profiles(ax(6), Vn.ABS2RCM, Ve.ABS2RCM, T.ABS2RCM, H0.ABS2RCM, [1 0 0], screenCoef, xyScreenRatio);
+% sr_put_scale_vector(ax(6), screenCoef, xyScreenRatio,'task9Style','1 N/m^2',3.0, -0.1);
+% datetick(ax(6),'x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
+% xlabel(ax(6),'\tau, N/m^2');
+% set(ax(6),'YGrid','off');
+% set(ax(6),'YTick',[]);
+% set(ax(6),'FontSize',fontSize);
+
+
+end
+
+function adjustAxesPos(ax)
+gap = 0.08;
+p5 = 0.06;
+h45 = 0.13;
+h23 = h45 * 1.0;
+h01 = h45 * 0.7;
+p4 = p5+h45+gap;
+p3 = p4+h45+gap;
+p2 = p3+h23+gap;
+p1 = p2+h23+gap;
+w = 0.7;
+set(ax(1),'Position',[0.1300    p1    w    h01]);
+set(ax(2),'Position',[0.1300    p2    w    h23]);
+set(ax(3),'Position',[0.1300    p3    w    h23]);
+set(ax(4),'Position',[0.1300    p4    w    h45]);
+set(ax(5),'Position',[0.1300    p5    w    h45]);
+end
+
+
+function save_figure(h, isSmoothed)
+fname = ['task_9_output_' datestr(now,'yyyy-dd-mm-HH-MM-SS') '_' isSmoothed '.jpeg'];
+disp('saving...');
+    rez=500; %resolution (dpi) of final graphic
+%     figpos=getpixelposition(h); %dont need to change anything here
+%     resolution=get(0,'ScreenPixelsPerInch'); %dont need to change anything here
+%     set(h,'paperunits','inches','papersize',figpos(3:4)/resolution,'paperposition',[0 0 figpos(3:4)/resolution]); %dont need to change anything here
+    %path='C:\Documents and Settings\yournamehere\Desktop\'; %the folder where you want to put the file
+    print(h, fname, '-dpng', ['-r', num2str(rez)], '-v')
 end
 
 
 
-function buildContourPlot(ax, T, timeLim, V, H, levelStep, titl,isoCount,caxLimit)
+function buildContourPlot(ax, T, timeLim, V, H, levelStep, titl,isoCount,caxLimit,fontSize)
 % @param [in] ax - axes
 % @param [in] T  - time vector
 % @param [in] timeLim - [tLim0 tLim1]
@@ -167,7 +212,7 @@ set(c,'TextStep',levelStep * mm2m);
 % putLabels(ax,M,c);
 
 lims = get(ax,'YLim');
-title(ax,titl,'FontSize',8,'FontWeight','bold');
+title(ax,titl,'FontSize',fontSize,'FontWeight','bold');
 ylabel(ax,'Depth, m');
 xlabel(ax,'Velocity, m/s');
 set(ax,'XLim', timeLim);
@@ -176,7 +221,7 @@ set(ax,'YGrid','on');
 set(ax,'YTick',lims(1):0.5:lims(2));
 set(ax,'Layer','top'); % put ticks on top of the `pcolor`
 datetick(ax,'x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
-set(ax,'FontSize',9);
+set(ax,'FontSize',fontSize);
 axes(ax);
 end
 

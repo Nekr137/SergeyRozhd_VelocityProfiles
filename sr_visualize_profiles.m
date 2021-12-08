@@ -1,4 +1,7 @@
-function sr_visualize_profiles(ax, Vn, Ve, T, H0, color, screenCoef, xyScreenRatio)
+function sr_visualize_profiles(ax, Vn, Ve, T, H0, color, screenCoef, xyScreenRatio,marker)
+if ~exist('marker','var')
+    marker = '.';
+end
 timeRange  = diff(get(ax,'XLim'));   % time range coefficient
 depthRange = diff(get(ax,'YLim'));   % depth range coefficient
 
@@ -20,7 +23,7 @@ for idxDepth = 1:length(H0) % depth cycle
         xCoordinates = [t t+veScreen];
         yCoordinates = [h h-vnScreen]; % The '-' sign is here because of the reversed depth axis
         plot(ax, xCoordinates, yCoordinates, 'Color', color); % Show vector
-        plot(ax, xCoordinates(1), yCoordinates(1), 'Color', color, 'Marker', '.');
+        plot(ax, xCoordinates(1), yCoordinates(1), 'Color', color, 'Marker', marker);
     end
 end
 end

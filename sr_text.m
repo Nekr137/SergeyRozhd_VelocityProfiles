@@ -28,7 +28,7 @@ if strcmp(position, 'bll')
     pos(1) = pos(1) - 0.7 * 2.0 * width;
 end
 if strcmp(position, 'task9Style')
-    pos(2) = pos(2) - 0.9 * height;
+    pos(2) = pos(2) - 0.4 * height;
 end
 set(h, 'Position', pos);
 end
