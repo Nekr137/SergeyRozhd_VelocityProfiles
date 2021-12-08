@@ -6,8 +6,9 @@ function task_9
 abs2Interval = [datenum('2021-08-10, 04:00', 'yyyy-mm-dd, HH:MM') T.ABS2(end)];
 [Vn.ABS2, Ve.ABS2, T.ABS2] = sr_extract_time_interval(Vn.ABS2, Ve.ABS2, T.ABS2, abs2Interval);
 
-Vn.ABS2 = Vn.ABS2 * 3.0;
-Ve.ABS2 = Ve.ABS2 * 3.0;
+ABS2_SCALE = 10.0;
+Vn.ABS2 = Vn.ABS2 * ABS2_SCALE;
+Ve.ABS2 = Ve.ABS2 * ABS2_SCALE;
 
 % Wind
 [Vn.wind, Ve.wind, T.wind, ~] = sr_load_task8('task_8_veter(copy).dat');
