@@ -1,4 +1,11 @@
-function [Vn, Ve, T, H0] = sr_load_abs_data(dirFilename, magFilename)
+function [Vn, Ve, T, H0] = sr_load_abs_data(dirFilename, magFilename,startDepth,depthStep)
+
+if ~exist('startDepth','var')
+    startDepth = 3.0;
+end
+if ~exist('depthStep','var')
+    depthStep = 0.5;
+end
 
 [headForDir, directions] = sr_parse_ABS_file(dirFilename);
 [headForMag, magnitudes] = sr_parse_ABS_file(magFilename);
@@ -16,7 +23,8 @@ angles = deg2rad(dirPerDepth);
 Vn = cos(angles) .* magPerDepth;
 Ve = sin(angles) .* magPerDepth;
 T = 0.5 * (Time1 + Time2);
-H0 = 0.5 * (1:s2) + 3.0;
+
+H0 = depthStep * (1:s2) + startDepth;
 Vn = Vn';
 Ve = Ve';
 end

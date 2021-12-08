@@ -1,7 +1,12 @@
 function task_9
 
-[Vn.ABS1, Ve.ABS1, T.ABS1, H0.ABS1] = sr_load_abs_data('ABS1_adcp300_dir.txt', 'ABS1_adcp300_mag.txt');
-[Vn.ABS2, Ve.ABS2, T.ABS2, H0.ABS2] = sr_load_abs_data('ABS2_dvs1_dir3.txt', 'ABS2_dvs1_mag3.txt');
+ABS1_START_DEPTH = 0.5;
+ABS2_START_DEPTH = 2.0;
+ABS1_DEPTH_STEP = 0.5;
+ABS2_DEPTH_STEP = 0.5;
+
+[Vn.ABS1, Ve.ABS1, T.ABS1, H0.ABS1] = sr_load_abs_data('ABS1_adcp300_dir.txt', 'ABS1_adcp300_mag.txt',ABS1_START_DEPTH,ABS1_DEPTH_STEP);
+[Vn.ABS2, Ve.ABS2, T.ABS2, H0.ABS2] = sr_load_abs_data('ABS2_dvs1_dir3.txt', 'ABS2_dvs1_mag3.txt',ABS2_START_DEPTH,ABS2_DEPTH_STEP);
 
 
 isSmoothed = 'NOT_SMOOTHED';
