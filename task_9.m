@@ -93,7 +93,7 @@ pp1 = get(ax(1),'Position');
 pp2 = get(fig,'Position');
 xyScreenRatio = pp1(3) / pp1(4) * pp2(3) / pp2(4);
 sr_visualize_profiles(ax(1), Vn.wndm, Ve.wndm, T.wndm, H0.wind, [1 0 0], screenCoef, xyScreenRatio);
-sr_put_scale_vector(ax(1), screenCoef, xyScreenRatio,'task9Style');
+sr_put_scale_vector(ax(1), screenCoef, xyScreenRatio,'task9Style','N/m^2',3.0);
 datetick(ax(1),'x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
 xlabel(ax(1),'\tau, N/m^2','FontSize',11);
 set(ax(1),'YGrid','off');
