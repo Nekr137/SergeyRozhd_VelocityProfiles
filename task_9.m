@@ -111,7 +111,8 @@ axes(ax(1));
 colorbar;
 set(colorbar,'visible','off');
 
-% sr_save_figure(fig,'task_9.jpeg');
+fname = ['task_9_output_' datestr(now,'yyyy-dd-mm-HH-MM-SS') '_' isSmoothed '.jpeg'];
+sr_save_figure(fig,fname);
 
 end
 
