@@ -3,6 +3,14 @@ function task_9
 [Vn.ABS1, Ve.ABS1, T.ABS1, H0.ABS1] = sr_load_abs_data('ABS1_adcp300_dir.txt', 'ABS1_adcp300_mag.txt');
 [Vn.ABS2, Ve.ABS2, T.ABS2, H0.ABS2] = sr_load_abs_data('ABS2_dvs1_dir3.txt', 'ABS2_dvs1_mag3.txt');
 
+
+isSmoothed = 'NOT_SMOOTHED';
+isSmoothed = 'SMOOTHED';
+Vn.ABS1 = imgaussfilt(Vn.ABS1, 'FilterSize', 3);
+Vn.ABS2 = imgaussfilt(Vn.ABS2, 'FilterSize', 3);
+Ve.ABS1 = imgaussfilt(Ve.ABS1, 'FilterSize', 3);
+Ve.ABS2 = imgaussfilt(Ve.ABS2, 'FilterSize', 3);
+
 abs2Interval = [datenum('2021-08-10, 04:00', 'yyyy-mm-dd, HH:MM') T.ABS2(end)];
 [Vn.ABS2, Ve.ABS2, T.ABS2] = sr_extract_time_interval(Vn.ABS2, Ve.ABS2, T.ABS2, abs2Interval);
 
