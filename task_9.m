@@ -36,27 +36,13 @@ timeLim = [
 ];
 
 fig = figure;
-
-% sz = get(0, 'ScreenSize'); % Getting your screen size
-% set(fig, 'Position', [0 0 min(sz(3),sz(4))*0.9 min(sz(3),sz(4))*0.9]); % Setting the figure size
-% set(gcf,'Position', [1367 -271 1920 963]);
-% set(gcf,'Position', [1367 -271 1920 2.0 * 963]);
-% set(gcf,'Position',[1 41 1366 651]);
-% set(fig,'PaperType','A4'); 
-% set(fig,'PaperSize',[ 8.2677 11.6929]);
-% set(fig,'PaperType','A4');
-
-% set(fig, 'PaperUnits', 'centimeters');
 set(fig, 'Position', [0 0 210 297]);
-% set(fig,'Position',[0 0 2 * 210 2 * 297]);
-
 ax(1) = subplot(511);
 ax(2) = subplot(512);
 ax(3) = subplot(513);
 ax(4) = subplot(514);
 ax(5) = subplot(515);
 set(ax,'FontSize',fontSize);
-
 adjustAxesPos(ax);
 
 % Used the getHeight(), setHeight() and moveVertically() to adjust the position
@@ -117,26 +103,7 @@ set(colorbar,'visible','off');
 
 set(fig,'Position',[0 0 2 * 210 2 * 297]);
 
-% sr_save_figure(fig, isSmoothed);
 save_figure(fig,isSmoothed);
-
-% [Vn.ABS2RCM, Ve.ABS2RCM, T.ABS2RCM, H0.ABS2RCM] = sr_load_ABS2_RCM_data('ABS2_RCM_184_20210809_1333.txt');
-% cm2m = 1e-2;
-% Ve.ABS2RCM = cm2m * Ve.ABS2RCM;
-% Vn.ABS2RCM = cm2m * Vn.ABS2RCM;
-% screenCoef = 1.0 / 130.0;
-% pp1 = get(ax(6),'Position');
-% pp2 = get(fig,'Position');
-% xyScreenRatio = pp1(3) / pp1(4) * pp2(3) / pp2(4);
-% sr_visualize_profiles(ax(6), Vn.ABS2RCM, Ve.ABS2RCM, T.ABS2RCM, H0.ABS2RCM, [1 0 0], screenCoef, xyScreenRatio);
-% sr_put_scale_vector(ax(6), screenCoef, xyScreenRatio,'task9Style','1 N/m^2',3.0, -0.1);
-% datetick(ax(6),'x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
-% xlabel(ax(6),'\tau, N/m^2');
-% set(ax(6),'YGrid','off');
-% set(ax(6),'YTick',[]);
-% set(ax(6),'FontSize',fontSize);
-
-
 end
 
 function adjustAxesPos(ax)
@@ -161,12 +128,8 @@ end
 function save_figure(h, isSmoothed)
 fname = ['task_9_output_' datestr(now,'yyyy-dd-mm-HH-MM-SS') '_' isSmoothed '.jpeg'];
 disp('saving...');
-    rez=500; %resolution (dpi) of final graphic
-%     figpos=getpixelposition(h); %dont need to change anything here
-%     resolution=get(0,'ScreenPixelsPerInch'); %dont need to change anything here
-%     set(h,'paperunits','inches','papersize',figpos(3:4)/resolution,'paperposition',[0 0 figpos(3:4)/resolution]); %dont need to change anything here
-    %path='C:\Documents and Settings\yournamehere\Desktop\'; %the folder where you want to put the file
-    print(h, fname, '-dpng', ['-r', num2str(rez)], '-v')
+rez=500; %resolution (dpi) of final graphic
+print(h, fname, '-dpng', ['-r', num2str(rez)], '-v')
 end
 
 
