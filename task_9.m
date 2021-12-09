@@ -67,6 +67,8 @@ buildContourPlot(ax(4), T.ABS2, timeLim, Vn.ABS2, H0.ABS2, step.ABS2, 'ABS2, U-c
 buildContourPlot(ax(3), T.ABS1, timeLim, Ve.ABS1, H0.ABS1, step.ABS1, 'ABS1, V-component',20,abs1barLim,fontSize);
 buildContourPlot(ax(5), T.ABS2, timeLim, Ve.ABS2, H0.ABS2, step.ABS2, 'ABS2, V-component',5,abs2barLim,fontSize);
 
+set(ax(4:5),'YTick',1:1:5);
+set(ax(4:5),'YTick',3:1:6);
 
 %% Time interval
 
@@ -218,7 +220,7 @@ xlabel(ax,'Velocity, m/s');
 set(ax,'XLim', timeLim);
 set(ax,'YDir', 'reverse');
 set(ax,'YGrid','on');
-set(ax,'YTick',lims(1):0.5:lims(2));
+% set(ax,'YTick',lims(1):0.5:lims(2));
 set(ax,'Layer','top'); % put ticks on top of the `pcolor`
 datetick(ax,'x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
 set(ax,'FontSize',fontSize);
