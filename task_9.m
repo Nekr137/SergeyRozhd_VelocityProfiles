@@ -17,8 +17,8 @@ Vn.ABS2 = imgaussfilt(Vn.ABS2, 'FilterSize', 3);
 Ve.ABS1 = imgaussfilt(Ve.ABS1, 'FilterSize', 3);
 Ve.ABS2 = imgaussfilt(Ve.ABS2, 'FilterSize', 3);
 
-abs2Interval = [datenum('2021-08-10, 04:00', 'yyyy-mm-dd, HH:MM') T.ABS2(end)];
-[Vn.ABS2, Ve.ABS2, T.ABS2] = sr_extract_time_interval(Vn.ABS2, Ve.ABS2, T.ABS2, abs2Interval);
+% abs2Interval = [datenum('2021-08-10, 04:00', 'yyyy-mm-dd, HH:MM') T.ABS2(end)];
+% [Vn.ABS2, Ve.ABS2, T.ABS2] = sr_extract_time_interval(Vn.ABS2, Ve.ABS2, T.ABS2, abs2Interval);
 
 ABS2_SCALE = 10.0;
 Vn.ABS2 = Vn.ABS2 * ABS2_SCALE;
@@ -47,8 +47,9 @@ fig = figure;
 % set(fig,'PaperType','A4');
 
 % set(fig, 'PaperUnits', 'centimeters');
-set(fig, 'Position', [0 0 210 297]);
+% set(fig, 'Position', [0 0 5 * 210 297]);
 % set(fig,'Position',[0 0 2 * 210 2 * 297]);
+set(fig,'Position',[0 0 6 * 210 2 * 297]);
 
 ax(1) = subplot(511);
 ax(2) = subplot(512);
@@ -61,11 +62,14 @@ adjustAxesPos(ax);
 
 % Used the getHeight(), setHeight() and moveVertically() to adjust the position
 abs1barLim = 300;
-abs2barLim = 800;
+abs2barLim = 300;
 buildContourPlot(ax(2), T.ABS1, timeLim, Vn.ABS1, H0.ABS1, step.ABS1, 'ABS1, U-component',20,abs1barLim,fontSize);
 buildContourPlot(ax(4), T.ABS2, timeLim, Vn.ABS2, H0.ABS2, step.ABS2, 'ABS2, U-component',5,abs2barLim,fontSize);
 buildContourPlot(ax(3), T.ABS1, timeLim, Ve.ABS1, H0.ABS1, step.ABS1, 'ABS1, V-component',20,abs1barLim,fontSize);
 buildContourPlot(ax(5), T.ABS2, timeLim, Ve.ABS2, H0.ABS2, step.ABS2, 'ABS2, V-component',5,abs2barLim,fontSize);
+
+set(ax(2:4),'YTick',1:1:5);
+set(ax(4:5),'YTick',3:1:6);
 
 
 %% Time interval
@@ -83,7 +87,7 @@ H0.wind = [1];
 [Vn.windInterv, Ve.windInterv, T.windInterv] = sr_extract_time_interval(Vn.wind, Ve.wind, T.wind, timeLim);
 
 % Find mean values
-w = 60 * 100;
+w = 60 * 40;
 Vn.wndm = sr_find_average_data(Vn.windInterv, w); 
 Ve.wndm = sr_find_average_data(Ve.windInterv, w); 
 T.wndm  = sr_find_average_data(T.windInterv, w); 
@@ -97,11 +101,11 @@ set(ax(1),'XLim', timeLim);
 set(ax(1), 'YDir', 'reverse'); % Made y axis reversed
 
 % screenCoef = 1 / length(H0) / 10;
-screenCoef = 1.0 / 50.0;
+screenCoef = 1.0 / 100.0;
 pp1 = get(ax(1),'Position');
 pp2 = get(fig,'Position');
 xyScreenRatio = pp1(3) / pp1(4) * pp2(3) / pp2(4);
-sr_visualize_profiles(ax(1), Vn.wndm, Ve.wndm, T.wndm, H0.wind, [1 0 0], screenCoef, xyScreenRatio,'none');
+sr_visualize_profiles(ax(1), Vn.wndm, Ve.wndm, T.wndm, H0.wind, [1 0 0], screenCoef, xyScreenRatio,'.');
 sr_put_scale_vector(ax(1), screenCoef, xyScreenRatio,'task9Style','1 N/m^2',3.0, [0.1 0.0],7);
 datetick(ax(1),'x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
 xlabel(ax(1),'\tau, N/m^2','FontSize',fontSize);
@@ -113,7 +117,8 @@ axes(ax(1));
 colorbar;
 set(colorbar,'visible','off');
 
-set(fig,'Position',[0 0 2 * 210 2 * 297]);
+set(fig,'Position',[0 0 6 * 210 2 * 297]);
+
 
 % sr_save_figure(fig, isSmoothed);
 save_figure(fig,isSmoothed);
@@ -157,7 +162,7 @@ end
 
 
 function save_figure(h, isSmoothed)
-fname = ['task_9_output_' datestr(now,'yyyy-dd-mm-HH-MM-SS') '_' isSmoothed '.jpeg'];
+fname = ['task_9_output_' datestr(now,'yyyy-mm-dd-HH-MM-SS') '_' isSmoothed '.jpeg'];
 disp('saving...');
     rez=500; %resolution (dpi) of final graphic
 %     figpos=getpixelposition(h); %dont need to change anything here
