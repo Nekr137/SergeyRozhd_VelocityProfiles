@@ -30,5 +30,8 @@ end
 if strcmp(position, 'task9Style')
     pos(2) = pos(2) - 0.4 * height;
 end
+if strcmp(position, 'task9Style6')
+    pos(2) = pos(2) - 0.6 * height;
+end
 set(h, 'Position', pos);
 end

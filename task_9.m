@@ -8,6 +8,8 @@ fontSize = 8;
 
 [Vn.ABS1, Ve.ABS1, T.ABS1, H0.ABS1] = sr_load_abs_data('ABS1_adcp300_dir.txt', 'ABS1_adcp300_mag.txt',ABS1_START_DEPTH,ABS1_DEPTH_STEP);
 [Vn.ABS2, Ve.ABS2, T.ABS2, H0.ABS2] = sr_load_abs_data('ABS2_dvs1_dir3.txt', 'ABS2_dvs1_mag3.txt',ABS2_START_DEPTH,ABS2_DEPTH_STEP);
+[Vn.wind, Ve.wind, T.wind, ~] = sr_load_task8('task_8_veter(copy).dat');
+[Vn.ABS2RCM, Ve.ABS2RCM, T.ABS2RCM, H0.ABS2RCM] = sr_load_ABS2_RCM_data('ABS2_RCM_184_20210809_1333.txt');
 
 
 isSmoothed = 'NOT_SMOOTHED';
@@ -23,9 +25,6 @@ abs2Interval = [datenum('2021-08-10, 04:00', 'yyyy-mm-dd, HH:MM') T.ABS2(end)];
 ABS2_SCALE = 10.0;
 Vn.ABS2 = Vn.ABS2 * ABS2_SCALE;
 Ve.ABS2 = Ve.ABS2 * ABS2_SCALE;
-
-% Wind
-[Vn.wind, Ve.wind, T.wind, ~] = sr_load_task8('task_8_veter(copy).dat');
 
 step.ABS1 = 120.0;
 step.ABS2 = 40.0;
@@ -50,11 +49,12 @@ fig = figure;
 set(fig, 'Position', [0 0 210 297]);
 % set(fig,'Position',[0 0 2 * 210 2 * 297]);
 
-ax(1) = subplot(511);
-ax(2) = subplot(512);
-ax(3) = subplot(513);
-ax(4) = subplot(514);
-ax(5) = subplot(515);
+ax(1) = subplot(611);
+ax(2) = subplot(612);
+ax(3) = subplot(613);
+ax(4) = subplot(614);
+ax(5) = subplot(615);
+ax(6) = subplot(616);
 set(ax,'FontSize',fontSize);
 
 adjustAxesPos(ax);
@@ -115,34 +115,49 @@ set(colorbar,'visible','off');
 
 set(fig,'Position',[0 0 2 * 210 2 * 297]);
 
+[Vn.ABS2RCM, Ve.ABS2RCM, T.ABS2RCM, H0.ABS2RCM] = sr_load_ABS2_RCM_data('ABS2_RCM_184_20210809_1333.txt');
+H0.ABS2RCM = 1;
+cm2m = 1e-2;
+Ve.ABS2RCM = cm2m * Ve.ABS2RCM;
+Vn.ABS2RCM = cm2m * Vn.ABS2RCM;
+
+[Vn.ABS2RCM, Ve.ABS2RCM, T.ABS2RCM] = sr_extract_time_interval(Vn.ABS2RCM, Ve.ABS2RCM, T.ABS2RCM, timeLim);
+
+w = 3;
+Vn.ABS2RCM = sr_find_average_data(Vn.ABS2RCM, w); 
+Ve.ABS2RCM = sr_find_average_data(Ve.ABS2RCM, w); 
+T.ABS2RCM  = sr_find_average_data(T.ABS2RCM, w); 
+
+axes(ax(6));
+hold on; box on; grid on;
+set(ax(6),'YLim', [0 2.0]);
+set(ax(6),'XLim', timeLim);
+set(ax(6), 'YDir', 'reverse'); % Made y axis reversed
+screenCoef = 1/6;
+sr_visualize_profiles(ax(6), Vn.ABS2RCM, Ve.ABS2RCM, T.ABS2RCM, H0.ABS2RCM, [1 0 0], screenCoef, xyScreenRatio,'none');
+sr_put_scale_vector(ax(6), 1/50, xyScreenRatio,'task9Style6','1 m/s',3.0, [0.1 0.0],7);
+datetick(ax(6),'x', 'mm/dd HH:MM', 'keeplimits');
+xlabel(ax(6),'Velocity, m/s');
+ylabel(ax(6),'Depth 5,8 m');
+title(ax(6),'Abs2 RCM');
+set(ax(6),'YGrid','off');
+set(ax(6),'YTick',[]);
+set(ax(6),'FontSize',fontSize);
+colorbar;
+set(colorbar,'visible','off');
+
 % sr_save_figure(fig, isSmoothed);
 save_figure(fig,isSmoothed);
-
-% [Vn.ABS2RCM, Ve.ABS2RCM, T.ABS2RCM, H0.ABS2RCM] = sr_load_ABS2_RCM_data('ABS2_RCM_184_20210809_1333.txt');
-% cm2m = 1e-2;
-% Ve.ABS2RCM = cm2m * Ve.ABS2RCM;
-% Vn.ABS2RCM = cm2m * Vn.ABS2RCM;
-% screenCoef = 1.0 / 130.0;
-% pp1 = get(ax(6),'Position');
-% pp2 = get(fig,'Position');
-% xyScreenRatio = pp1(3) / pp1(4) * pp2(3) / pp2(4);
-% sr_visualize_profiles(ax(6), Vn.ABS2RCM, Ve.ABS2RCM, T.ABS2RCM, H0.ABS2RCM, [1 0 0], screenCoef, xyScreenRatio);
-% sr_put_scale_vector(ax(6), screenCoef, xyScreenRatio,'task9Style','1 N/m^2',3.0, -0.1);
-% datetick(ax(6),'x', 'mm/dd HH:MM', 'keeplimits', 'keepticks');
-% xlabel(ax(6),'\tau, N/m^2');
-% set(ax(6),'YGrid','off');
-% set(ax(6),'YTick',[]);
-% set(ax(6),'FontSize',fontSize);
-
 
 end
 
 function adjustAxesPos(ax)
-gap = 0.08;
-p5 = 0.06;
-h45 = 0.13;
+gap = 0.075;
+p6 = 0.06;
+h45 = 0.10;
 h23 = h45 * 1.0;
 h01 = h45 * 0.7;
+p5 = p6+h01+gap;
 p4 = p5+h45+gap;
 p3 = p4+h45+gap;
 p2 = p3+h23+gap;
@@ -153,6 +168,7 @@ set(ax(2),'Position',[0.1300    p2    w    h23]);
 set(ax(3),'Position',[0.1300    p3    w    h23]);
 set(ax(4),'Position',[0.1300    p4    w    h45]);
 set(ax(5),'Position',[0.1300    p5    w    h45]);
+set(ax(6),'Position',[0.1300    p6    w    h01]);
 end
 
 
