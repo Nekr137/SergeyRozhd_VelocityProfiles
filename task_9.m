@@ -61,7 +61,7 @@ adjustAxesPos(ax);
 
 % Used the getHeight(), setHeight() and moveVertically() to adjust the position
 abs1barLim = 300;
-abs2barLim = 800;
+abs2barLim = 300;
 buildContourPlot(ax(2), T.ABS1, timeLim, Vn.ABS1, H0.ABS1, step.ABS1, 'ABS1, U-component',20,abs1barLim,fontSize);
 buildContourPlot(ax(4), T.ABS2, timeLim, Vn.ABS2, H0.ABS2, step.ABS2, 'ABS2, U-component',5,abs2barLim,fontSize);
 buildContourPlot(ax(3), T.ABS1, timeLim, Ve.ABS1, H0.ABS1, step.ABS1, 'ABS1, V-component',20,abs1barLim,fontSize);
