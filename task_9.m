@@ -17,8 +17,8 @@ Vn.ABS2 = imgaussfilt(Vn.ABS2, 'FilterSize', 3);
 Ve.ABS1 = imgaussfilt(Ve.ABS1, 'FilterSize', 3);
 Ve.ABS2 = imgaussfilt(Ve.ABS2, 'FilterSize', 3);
 
-abs2Interval = [datenum('2021-08-10, 04:00', 'yyyy-mm-dd, HH:MM') T.ABS2(end)];
-[Vn.ABS2, Ve.ABS2, T.ABS2] = sr_extract_time_interval(Vn.ABS2, Ve.ABS2, T.ABS2, abs2Interval);
+% abs2Interval = [datenum('2021-08-10, 04:00', 'yyyy-mm-dd, HH:MM') T.ABS2(end)];
+% [Vn.ABS2, Ve.ABS2, T.ABS2] = sr_extract_time_interval(Vn.ABS2, Ve.ABS2, T.ABS2, abs2Interval);
 
 ABS2_SCALE = 10.0;
 Vn.ABS2 = Vn.ABS2 * ABS2_SCALE;
