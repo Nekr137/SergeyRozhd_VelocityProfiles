@@ -136,8 +136,6 @@ function vis2(ax, xx, yy, lgnd)
     axes(ax);     plot(ax, xx, yy, 'k.-');
     xlabel('Time');     ylabel('r');
     datetick(ax,'x', 'mm/dd HH:MM','keeplimits', 'keepticks');
-    set(ax,'XTickMode','auto');
-    set(ax,'XLimMode','auto');
     box on;     grid on;
     set(ax,'YLim',[-1 1]);
     set(gca,'YTick', [-1.0 -0.6 0 0.6 1.0])
