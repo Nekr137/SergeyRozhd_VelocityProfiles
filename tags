@@ -1,0 +1,118 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BuildColumn	task_6_columns.m	/^function BuildColumn(ax, iP2D, iWidth, iHeight, iColor, iLabel)$/;"	f
+BuildColumn	task_7_columns_on_two_figures.m	/^function BuildColumn(ax, iP2D, iWidth, iHeight, iColor, iLabel)$/;"	f
+RunDayVisualization	task_5.m	/^function RunDayVisualization(Vn, Ve, T, H0, ranges, stations, figureTitle)$/;"	f
+RunFigureCreation	task_1.m	/^function RunFigureCreation(depthIndices, filename, ranges, stations, figureTitle) $/;"	f
+RunFigureCreation	task_2.m	/^function RunFigureCreation(filename, ranges, stations, figureTitle) $/;"	f
+RunWholeIntervalVisualization	task_5.m	/^function RunWholeIntervalVisualization(Vn, Ve, T, H0)$/;"	f
+ShowColumns	task_6_columns.m	/^function ShowColumns(ax, Cvv, Cvmv, Cvov, Cvovotn, coo)$/;"	f
+ShowColumns	task_7_columns_on_two_figures.m	/^function ShowColumns(ax1, ax2, Cvv, Cvmv, Cvov, Cvovotn, coo)$/;"	f
+ShowDayVectors	task_3_suspension.m	/^function ShowDayVectors(ax, Vn, Ve, T, ranges, coordinates, suspension) $/;"	f
+ShowDayVectors	task_4_coloredTime.m	/^function ShowDayVectors(ax, Vn, Ve, T, ranges, coordinates, colors, lineWidth) $/;"	f
+ShowDayVectors	task_6_columns.m	/^function ShowDayVectors(ax, Vn, Ve, T, ranges, coordinates, suspension) $/;"	f
+ShowDayVectors	task_7_columns_on_two_figures.m	/^function ShowDayVectors(ax, Vn, Ve, T, ranges, coordinates, suspension) $/;"	f
+ShowMap	task_2_map.m	/^function ShowMap(coordinates, depthIndices, filename, ranges, figureTitle) $/;"	f
+Write	task_6_2_creating_data_file.m	/^function Write(fid_n, fid_e, depthIndices, filename, ranges) $/;"	f
+adjustAxesPos	task_9.m	/^function adjustAxesPos(ax)$/;"	f
+buildContourPlot	task_9.m	/^function buildContourPlot(ax, T, timeLim, V, H, levelStep, titl,isoCount,caxLimit,fontSize)$/;"	f
+checkheader	rdradcp.m	/^function valid=checkheader(fd)$/;"	f
+checkheader	rdradcp_2013.m	/^function valid=checkheader(fd);$/;"	f
+findR	sr_corr.m	/^function r = findR(x,y,maxlag)$/;"	f
+foo	sr_corr.m	/^function r = foo(x,y)$/;"	f
+getColorOfColormap	task_9.m	/^function rgb = getColorOfColormap(ax,value)$/;"	f
+getHeight	task_9.m	/^function height = getHeight(ax)$/;"	f
+getopt	rdpadcp.m	/^function opt=getopt(val,varargin);$/;"	f
+getopt	rdpadcp_2013.m	/^function opt=getopt(val,varargin);$/;"	f
+getopt	rdradcp.m	/^function opt=getopt(val,varargin)$/;"	f
+getopt	rdradcp_2013.m	/^function opt=getopt(val,varargin);$/;"	f
+interp3D	task_9.m	/^function [xx,yy,mm] = interp3D(x,y,m,coef)$/;"	f
+interpArray	task_9.m	/^function yy = interpArray(array, N)$/;"	f
+interpretContour	task_9.m	/^function Data = interpretContour(M)$/;"	f
+isTextsInters	task_9.m	/^function res = isTextsInters(t1,t2)$/;"	f
+moveVertically	task_9.m	/^function moveVertically(ax, dist)$/;"	f
+nmean	rdpadcp.m	/^function y=nmean(x,dim);$/;"	f
+nmean	rdpadcp_2013.m	/^function y=nmean(x,dim);$/;"	f
+nmean	rdradcp.m	/^function y=nmean(x,dim)$/;"	f
+nmean	rdradcp_2013.m	/^function y=nmean(x,dim);$/;"	f
+nmedian	rdpadcp.m	/^function y=nmedian(x,window,dim);$/;"	f
+nmedian	rdpadcp_2013.m	/^function y=nmedian(x,window,dim);$/;"	f
+nmedian	rdradcp.m	/^function y=nmedian(x,window,dim)$/;"	f
+nmedian	rdradcp_2013.m	/^function y=nmedian(x,window,dim);$/;"	f
+putLabels	task_9.m	/^function putLabels(ax,M,c)$/;"	f
+rd_buffer	rdradcp.m	/^function [ens,hdr,cfg,pos]=rd_buffer(fd,num_av)$/;"	f
+rd_buffer	rdradcp_2013.m	/^function [ens,hdr,cfg,pos]=rd_buffer(fd,num_av);$/;"	f
+rd_fix	rdradcp.m	/^function cfg=rd_fix(fd)$/;"	f
+rd_fix	rdradcp_2013.m	/^function cfg=rd_fix(fd);$/;"	f
+rd_fixseg	rdradcp.m	/^function [cfg,nbyte]=rd_fixseg(fd)$/;"	f
+rd_fixseg	rdradcp_2013.m	/^function [cfg,nbyte]=rd_fixseg(fd);$/;"	f
+rd_hdr	rdradcp.m	/^function [hdr,pos]=rd_hdr(fd)$/;"	f
+rd_hdr	rdradcp_2013.m	/^function [hdr,pos]=rd_hdr(fd);$/;"	f
+rd_hdrseg	rdradcp.m	/^function [hdr,nbyte]=rd_hdrseg(fd)$/;"	f
+rd_hdrseg	rdradcp_2013.m	/^function [hdr,nbyte]=rd_hdrseg(fd);$/;"	f
+rdpadcp	rdpadcp.m	/^function [adcp,cfg,ens]=rdpadcp(varargin);$/;"	f
+rdpadcp	rdpadcp_2013.m	/^function [adcp,cfg,ens]=rdpadcp(varargin);$/;"	f
+rdradcp	rdradcp.m	/^function [adcp,cfg,ens,hdr]=rdradcp(name,varargin)$/;"	f
+rdradcp	rdradcp_2013.m	/^function [adcp,cfg,ens,hdr]=rdradcp(name,varargin);$/;"	f
+read_cfg	rdpadcp.m	/^function cfg=read_cfg(hdr,fd);$/;"	f
+read_cfg	rdpadcp_2013.m	/^function cfg=read_cfg(hdr,fd);$/;"	f
+read_cfgseg	rdpadcp.m	/^function cfg=read_cfgseg(fd);$/;"	f
+read_cfgseg	rdpadcp_2013.m	/^function cfg=read_cfgseg(fd);$/;"	f
+read_ensemble	rdpadcp.m	/^function [ens,hdr]=read_ensemble(fd,num_av,cfg);$/;"	f
+read_ensemble	rdpadcp_2013.m	/^function [ens,hdr]=read_ensemble(fd,num_av,cfg);$/;"	f
+read_hdr	rdpadcp.m	/^function hdr=read_hdr(fd,adcp_type,n_cells);$/;"	f
+read_hdr	rdpadcp_2013.m	/^function hdr=read_hdr(fd,adcp_type,n_cells);$/;"	f
+save_figure	task_9.m	/^function save_figure(h, isSmoothed)$/;"	f
+setHeight	task_9.m	/^function setHeight(ax,height)$/;"	f
+setRedBlueSmoothedColormap	task_9.m	/^function setRedBlueSmoothedColormap(ax)$/;"	f
+sr_add_station_labels	sr_add_station_labels.m	/^function sr_add_station_labels(ax, ranges, labels)$/;"	f
+sr_build_color_vector	sr_build_color_vector.m	/^function colors = sr_build_color_vector()$/;"	f
+sr_build_figure	sr_build_figure.m	/^function ax = sr_build_figure(xmin, ymin, xmax, ymax)$/;"	f
+sr_convert_ABS_data	sr_convert_ABS_data.m	/^function [Time, DataPerDepth] = sr_convert_ABS_data(head, data)$/;"	f
+sr_corr	sr_corr.m	/^function r = sr_corr(x, y, maxlag)$/;"	f
+sr_create_figure	sr_create_figure.m	/^function sr_create_figure(ax, Ve, Vn, T, H0, ranges, stationSmoothedVectorsColor, stationVectorColors, nonstationVectorsColor, screenCoef)$/;"	f
+sr_extract_depths	sr_extract_depths.m	/^function [oVn, oVe, oH] = sr_extract_depths(iVn, iVe, iH, aDepthIndices)$/;"	f
+sr_extract_time_interval	sr_extract_time_interval.m	/^function [oVn, oVe, oT] = sr_extract_time_interval(iVn, iVe, iT, iTimeInterval)$/;"	f
+sr_find_average_data	sr_find_average_data.m	/^function [Dmean] = sr_find_average_data(D, w)$/;"	f
+sr_get_coordinates_of_bottom_stations	sr_get_coordinates_of_bottom_stations.m	/^function [ABS1_adcp300, ABS2_DVS, ABS2_RCM] = sr_get_coordinates_of_bottom_stations() $/;"	f
+sr_get_ranges_and_stations	sr_get_ranges_and_stations.m	/^function [ranges1,ranges2, stations1, stations2, figureTitle1, figureTitle2] = sr_get_ranges_and_stations()$/;"	f
+sr_get_station_coordinates	sr_get_station_coordinates.m	/^function coordinates = sr_get_station_coordinates() $/;"	f
+sr_get_test_filenames	sr_get_test_filenames.m	/^function [filename1, filename2] = sr_get_test_filenames()$/;"	f
+sr_load_ABS2_RCM_data	sr_load_ABS2_RCM_data.m	/^function [Vn, Ve, T, H0] = sr_load_ABS2_RCM_data(filename)$/;"	f
+sr_load_abs_data	sr_load_abs_data.m	/^function [Vn, Ve, T, H0] = sr_load_abs_data(dirFilename, magFilename,startDepth,depthStep)$/;"	f
+sr_load_coastline_map	sr_load_coastline_map.m	/^function sr_load_coastline_map(ax)$/;"	f
+sr_load_data	sr_load_data.m	/^function [Vns, Ves, Ts, Depth] = sr_load_data(fname)$/;"	f
+sr_load_task5	sr_load_task5.m	/^function [Vn, Ve, T, H0] = sr_load_task5(filename)$/;"	f
+sr_load_task8	sr_load_task8.m	/^function [Vn, Ve, T, H0] = sr_load_task8(fname)$/;"	f
+sr_parse_ABS2_RCM_file	sr_parse_ABS2_RCM_file.m	/^function [head, data] = sr_parse_ABS2_RCM_file(filename)$/;"	f
+sr_parse_ABS_file	sr_parse_ABS_file.m	/^function [head, data] = sr_parse_ABS_file(filename)$/;"	f
+sr_parse_time_speed_dir	sr_parse_time_speed_dir.m	/^function data = sr_parse_time_speed_dir(filename)$/;"	f
+sr_put_scale_vector	sr_put_scale_vector.m	/^function sr_put_scale_vector(ax, screenCoef, xyScreenRatio, textPosStyle, scaleText, arrowLength,posShift,fontSize)$/;"	f
+sr_put_scale_vector_on_map	sr_put_scale_vector_on_map.m	/^function sr_put_scale_vector_on_map(ax)$/;"	f
+sr_put_stations_on_map	sr_put_stations_on_map.m	/^function sr_put_stations_on_map(ax)$/;"	f
+sr_save_figure	sr_save_figure.m	/^function sr_save_figure(h, filenameWithExt)$/;"	f
+sr_show_vector_on_map	sr_show_vector_on_map.m	/^function sr_show_vector_on_map(ax, pe, pn, ve, vn, color, lineWidth)$/;"	f
+sr_smooth_data	sr_smooth_data.m	/^function [oVn, oVe, oT] = sr_smooth_data(iVn, iVe, iT)$/;"	f
+sr_text	sr_text.m	/^function height = sr_text(ax, x, y, str, position, color, fontSize)$/;"	f
+sr_visualize_profiles	sr_visualize_profiles.m	/^function sr_visualize_profiles(ax, Vn, Ve, T, H0, color, screenCoef, xyScreenRatio,marker)$/;"	f
+sr_visualize_ranges	sr_visualize_ranges.m	/^function sr_visualize_ranges(ax, ranges)$/;"	f
+task_1	task_1.m	/^function task_1()$/;"	f
+task_10_correlation_2	task_10_correlation_2.m	/^function task_10_correlation_2$/;"	f
+task_2	task_2.m	/^function task_2()$/;"	f
+task_2_map	task_2_map.m	/^function task_2_map()$/;"	f
+task_3_suspension	task_3_suspension.m	/^function task_3_suspension()$/;"	f
+task_4_coloredTime	task_4_coloredTime.m	/^function task_4_coloredTime()$/;"	f
+task_5	task_5.m	/^function task_5()$/;"	f
+task_6_2_creating_data_file	task_6_2_creating_data_file.m	/^function task_6_2_creating_data_file()$/;"	f
+task_6_columns	task_6_columns.m	/^function task_6_columns()$/;"	f
+task_7_columns_on_two_figures	task_7_columns_on_two_figures.m	/^function task_7_columns_on_two_figures()$/;"	f
+task_8_correlation	task_8_correlation.m	/^function task_8_correlation()$/;"	f
+task_9	task_9.m	/^function task_9$/;"	f
+vis1	task_10_correlation_2.m	/^function vis1(ax, xx, yy, xlab, ylab)$/;"	f
+vis1	task_8_correlation.m	/^function vis1(ax, xx, yy, xlab, ylab)$/;"	f
+vis2	task_10_correlation_2.m	/^function vis2(ax, xx, yy, lgnd)$/;"	f
+vis2	task_8_correlation.m	/^function vis2(ax, xx, yy, lgnd)$/;"	f
