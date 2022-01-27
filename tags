@@ -102,6 +102,7 @@ sr_visualize_profiles	sr_visualize_profiles.m	/^function sr_visualize_profiles(a
 sr_visualize_ranges	sr_visualize_ranges.m	/^function sr_visualize_ranges(ax, ranges)$/;"	f
 task_1	task_1.m	/^function task_1()$/;"	f
 task_10_correlation_2	task_10_correlation_2.m	/^function task_10_correlation_2$/;"	f
+task_11_projection	task_11_projection.m	/^function task_11_projection()$/;"	f
 task_2	task_2.m	/^function task_2()$/;"	f
 task_2_map	task_2_map.m	/^function task_2_map()$/;"	f
 task_3_suspension	task_3_suspension.m	/^function task_3_suspension()$/;"	f
@@ -112,6 +113,7 @@ task_6_columns	task_6_columns.m	/^function task_6_columns()$/;"	f
 task_7_columns_on_two_figures	task_7_columns_on_two_figures.m	/^function task_7_columns_on_two_figures()$/;"	f
 task_8_correlation	task_8_correlation.m	/^function task_8_correlation()$/;"	f
 task_9	task_9.m	/^function task_9$/;"	f
+treatFile	task_11_projection.m	/^function treatFile(filename, dateRanges, stationNames) $/;"	f
 vis1	task_10_correlation_2.m	/^function vis1(ax, xx, yy, xlab, ylab)$/;"	f
 vis1	task_8_correlation.m	/^function vis1(ax, xx, yy, xlab, ylab)$/;"	f
 vis2	task_10_correlation_2.m	/^function vis2(ax, xx, yy, lgnd)$/;"	f
