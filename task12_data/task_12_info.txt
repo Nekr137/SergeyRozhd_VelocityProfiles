@@ -1,0 +1,1 @@
+﻿This folder contained input data files, but I've removed all (except one) of the files to save memory.
